@@ -10,7 +10,7 @@ spec:
     required: true
     type:
       group: ""
-      resource: ConfigMap
+      kind: ""
   - name: Secrets
     required: true
     type:

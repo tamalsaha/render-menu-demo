@@ -22,30 +22,31 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const (
-	ResourceKindRenderSection = "RenderSection"
-	ResourceRenderSection     = "rendersection"
-	ResourceRenderSections    = "rendersections"
-)
-
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type RenderSection struct {
+type Menu struct {
 	metav1.TypeMeta `json:",inline"`
-	// Request describes the attributes for the graph request.
-	// +optional
-	Request *RenderSectionRequest `json:"request,omitempty"`
-	// Response describes the attributes for the graph response.
-	// +optional
-	Response *RenderSectionResponse `json:"response,omitempty"`
+	Sections        []*MenuSection `json:"sections,omitempty"`
 }
 
-type RenderSectionRequest struct {
-	Source         kmapi.ObjectID  `json:"source"`
-	Target         ResourceLocator `json:"target"`
-	ConvertToTable bool            `json:"convertToTable"`
+type MenuSection struct {
+	Name              string `json:"name,omitempty"`
+	ResourceClassInfo `json:",inline"`
+	Weight            int        `json:"-"`
+	Entries           []MenuItem `json:"entries"`
 }
 
-type RenderSectionResponse struct {
-	PageSection `json:",inline"`
+type MenuItem struct {
+	Name string `json:"name"`
+	// +optional
+	Path     string            `json:"path,omitempty"`
+	Resource *kmapi.ResourceID `json:"resource,omitempty"`
+	Missing  bool              `json:"missing,omitempty"`
+	// +optional
+	Required bool `json:"required,omitempty"`
+	// +optional
+	LayoutName string `json:"layoutName,omitempty"`
+	// +optional
+	Icons     []ImageSpec           `json:"icons,omitempty"`
+	Installer *DeploymentParameters `json:"installer,omitempty"`
 }

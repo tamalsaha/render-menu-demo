@@ -21,9 +21,9 @@ import (
 )
 
 const (
-	ResourceKindResourceClass = "ResourceClass"
-	ResourceResourceClass     = "resourceclass"
-	ResourceResourceClasses   = "resourceclasses"
+	ResourceKindMenuOutline = "MenuOutline"
+	ResourceMenuOutline     = "menuoutline"
+	ResourceMenuOutlinees   = "menuoutlines"
 )
 
 // +genclient
@@ -32,25 +32,37 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=resourceclasses,singular=resourceclass
+// +kubebuilder:resource:path=menuoutlines,singular=menuoutline
 // +kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.phase"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
-type ResourceClass struct {
+type MenuOutline struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ResourceClassSpec `json:"spec,omitempty"`
+	Spec              MenuOutlineSpec `json:"spec"`
 }
 
-type ResourceClassSpec struct {
-	ResourceClassInfo `json:",inline"`
-	Weight            int     `json:"weight"`
-	Entries           []Entry `json:"entries"`
+type MenuOutlineSpec struct {
+	*MenuSectionOverview `json:",inline,omitempty"`
+	Sections             []MenuSectionOutline `json:"sections,omitempty"`
 }
 
-type ResourceClassInfo struct {
-	APIGroup string `json:"apiGroup,omitempty"`
+type MenuSectionOutline struct {
+	*MenuSectionOverview `json:",inline,omitempty"`
+	Entries              []MenuEntry `json:"entries"`
+}
+
+type MenuSectionOverview struct {
+	Name string `json:"name,omitempty"`
+
+	// +optional
+	Path string `json:"path,omitempty"`
+	// +optional
+	AutoDiscoverAPIGroup string `json:"autoDiscoverAPIGroup,omitempty"`
+
+	// +optional
+	LayoutName string `json:"layoutName,omitempty"`
 
 	// Icons is an optional list of icons for an application. Icon information includes the source, size,
 	// and mime type.
@@ -64,13 +76,13 @@ type ResourceClassInfo struct {
 	Links []Link `json:"links,omitempty"`
 }
 
-type Entry struct {
+type MenuEntry struct {
 	Name string `json:"name"`
 	// +optional
 	Path string            `json:"path,omitempty"`
 	Type *metav1.GroupKind `json:"type,omitempty"`
 	// +optional
-	LayoutName string `json:"layoutName"`
+	LayoutName string `json:"layoutName,omitempty"`
 	// +optional
 	Required bool `json:"required,omitempty"`
 	// +optional
@@ -80,8 +92,8 @@ type Entry struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-type ResourceClassList struct {
+type MenuOutlineList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ResourceClass `json:"items,omitempty"`
+	Items           []MenuOutline `json:"items,omitempty"`
 }

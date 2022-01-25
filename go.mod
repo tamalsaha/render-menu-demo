@@ -200,7 +200,7 @@ require (
 	k8s.io/utils v0.0.0-20210802155522-efc7438f0176 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
 	kmodules.xyz/apply v0.0.0-20210503080849-eb226c295465 // indirect
-	kmodules.xyz/resource-metadata v0.8.2-0.20220118155908-37e400a5c469 // indirect
+	kmodules.xyz/resource-metadata v0.8.2-0.20220125073705-c3a28a66d15f // indirect
 	sigs.k8s.io/application v0.8.2-0.20200306235134-f10d9ca8abd4 // indirect
 	sigs.k8s.io/cli-utils v0.26.1 // indirect
 	sigs.k8s.io/kustomize/api v0.8.8 // indirect
