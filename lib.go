@@ -49,7 +49,7 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 				LayoutName: entry.LayoutName,
 			}
 			if entry.Type != nil {
-				gvr, ok := r.findGVR(entry.Type, keepOfficialTypes)
+				gvr, ok := r.FindGVR(entry.Type, keepOfficialTypes)
 				if !ok {
 					continue
 				}
