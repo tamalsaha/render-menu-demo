@@ -351,6 +351,8 @@ github.com/gogo/protobuf/gogoproto
 github.com/gogo/protobuf/proto
 github.com/gogo/protobuf/protoc-gen-gogo/descriptor
 github.com/gogo/protobuf/sortkeys
+# github.com/golang/glog v0.0.0-20210429001901-424d2337a529
+## explicit
 # github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e
 ## explicit
 github.com/golang/groupcache/lru
@@ -1319,7 +1321,7 @@ kmodules.xyz/client-go/tools/clientcmd
 kmodules.xyz/client-go/tools/converter
 kmodules.xyz/client-go/tools/parser
 kmodules.xyz/client-go/tools/wait
-# kmodules.xyz/resource-metadata v0.8.2-0.20220125073705-c3a28a66d15f
+# kmodules.xyz/resource-metadata v0.8.2-0.20220125092446-dd5f41895dcd
 ## explicit; go 1.17
 kmodules.xyz/resource-metadata/apis/meta
 kmodules.xyz/resource-metadata/apis/meta/v1alpha1
@@ -1327,6 +1329,7 @@ kmodules.xyz/resource-metadata/crds
 kmodules.xyz/resource-metadata/hub
 kmodules.xyz/resource-metadata/hub/resourceclasses
 kmodules.xyz/resource-metadata/hub/resourcedescriptors
+kmodules.xyz/resource-metadata/hub/resourceeditors
 kmodules.xyz/resource-metadata/hub/resourceoutlines
 # kubepack.dev/kubepack v0.3.9-0.20220116143022-30c1dc0a58ab
 ## explicit; go 1.17
@@ -1335,12 +1338,12 @@ kubepack.dev/kubepack/apis/kubepack
 kubepack.dev/kubepack/apis/kubepack/v1alpha1
 kubepack.dev/kubepack/crds
 kubepack.dev/kubepack/pkg/lib
-# kubepack.dev/lib-app v0.0.6-0.20211223195145-c60c93f002b8
-## explicit; go 1.16
+# kubepack.dev/lib-app v0.0.6-0.20220125094005-5c2d355823b5
+## explicit; go 1.17
 kubepack.dev/lib-app/api/v1alpha1
 kubepack.dev/lib-app/pkg/editor
 kubepack.dev/lib-app/pkg/handler
-# kubepack.dev/lib-helm v0.3.2-0.20220117232429-52a6f842b7d0
+# kubepack.dev/lib-helm v0.3.2-0.20220125093010-400f2676b169
 ## explicit; go 1.17
 kubepack.dev/lib-helm/pkg/action
 kubepack.dev/lib-helm/pkg/application

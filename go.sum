@@ -1490,8 +1490,8 @@ kmodules.xyz/resource-metadata v0.5.8-0.20210722055301-dcc1abc08aa0/go.mod h1:1n
 kmodules.xyz/resource-metadata v0.7.1-0.20211223071151-daf19bd77f84/go.mod h1:AF6yUxhF4CUx2aoAWEbX4fPEGKHgStT74fgBUSbhYs4=
 kmodules.xyz/resource-metadata v0.8.2-0.20220116072424-4ed4f0c4b8b5/go.mod h1:1SGviU14pH9nhwp+hBGI9mVqvv0MRt8r/j7B8eMFIj0=
 kmodules.xyz/resource-metadata v0.8.2-0.20220118155908-37e400a5c469/go.mod h1:1SGviU14pH9nhwp+hBGI9mVqvv0MRt8r/j7B8eMFIj0=
-kmodules.xyz/resource-metadata v0.8.2-0.20220125073705-c3a28a66d15f h1:plpoNIYq5dai0ID2urfFwn45r/8KaDIvcSSyaBF9vIE=
-kmodules.xyz/resource-metadata v0.8.2-0.20220125073705-c3a28a66d15f/go.mod h1:1SGviU14pH9nhwp+hBGI9mVqvv0MRt8r/j7B8eMFIj0=
+kmodules.xyz/resource-metadata v0.8.2-0.20220125092446-dd5f41895dcd h1:U3CyauNWE2qEAEZCMftyKwymq64HFgyaiwS62dCq9UE=
+kmodules.xyz/resource-metadata v0.8.2-0.20220125092446-dd5f41895dcd/go.mod h1:1SGviU14pH9nhwp+hBGI9mVqvv0MRt8r/j7B8eMFIj0=
 kmodules.xyz/resource-metrics v0.0.5/go.mod h1:6Dv63HDgp83DhA+lZNB7GIQR6PLjNrYW6ghQKioQzII=
 kmodules.xyz/resource-metrics v0.0.6/go.mod h1:M7rWuo2qh3BpHhogiEVPnvGY9Xx4Pfygqn1Rex8YbgM=
 kmodules.xyz/schema-checker v0.2.0/go.mod h1:J1QUIFsqW0h/WNrIGzzy3UopTzg+RmMJXxvAZfmYDb4=
@@ -1501,12 +1501,14 @@ kubepack.dev/chart-doc-gen v0.4.3/go.mod h1:IslPGDf/yxW4W7e3hEmKnZXx4HxdLrVZtCSe
 kubepack.dev/kubepack v0.3.4/go.mod h1:bXyPN98vQ3hQwgT8tY71H/1k3uhRoK6KlHOsDpFFuQo=
 kubepack.dev/kubepack v0.3.9-0.20220116143022-30c1dc0a58ab h1:NCaG0MC5yDvQZK/w8PGFSWRYpzQF9xNhjJucyZxz8RA=
 kubepack.dev/kubepack v0.3.9-0.20220116143022-30c1dc0a58ab/go.mod h1:29gsVT85DQHoKE6t0ggPf0NgAtIJMHLt4RaqeBNe6dY=
-kubepack.dev/lib-app v0.0.6-0.20211223195145-c60c93f002b8 h1:iiVQpGp38V2mJz0zi1b+OZtAHtvbkqZAtl4MQkvOItE=
 kubepack.dev/lib-app v0.0.6-0.20211223195145-c60c93f002b8/go.mod h1:RvYa+lZ3w6n56koo+/Fo/sKLNAZP0gmj8CrA2xo17lg=
+kubepack.dev/lib-app v0.0.6-0.20220125094005-5c2d355823b5 h1:w6G+cenF0pdogNco/KxKEj7/XEeOiBrerkR5s5spHWA=
+kubepack.dev/lib-app v0.0.6-0.20220125094005-5c2d355823b5/go.mod h1:J75Ir9DomTB36j8DGGTylCZE9tm9OjFreImgP9m6Bso=
 kubepack.dev/lib-helm v0.2.4-0.20210702135227-03dd8e7b6b0f/go.mod h1:DplLtfJRRq0Wl3EJqSocdNidVr3sYneLdm5C7Mqe/Ys=
 kubepack.dev/lib-helm v0.3.2-0.20211223113921-d8cbb538a0e3/go.mod h1:ITnSLP4Gv2h6r4cCsBr42VbpDqd20jbTnD+qD9NRBgg=
-kubepack.dev/lib-helm v0.3.2-0.20220117232429-52a6f842b7d0 h1:VsQIPv6AJqg7vw+oBDVsz8IQNSLujNPr+bWBC04O+Xg=
 kubepack.dev/lib-helm v0.3.2-0.20220117232429-52a6f842b7d0/go.mod h1:P8JpjPfS1pYJpVKjOsFeTblHnwMnXMLxry9JjtswNd0=
+kubepack.dev/lib-helm v0.3.2-0.20220125093010-400f2676b169 h1:FNZvGCDZS/rO7CEn7qqQLx3UccitfXOuGsZsxraTdH0=
+kubepack.dev/lib-helm v0.3.2-0.20220125093010-400f2676b169/go.mod h1:y6gj9Mjer8vnOTQa3CovslX2a3k8L5UIO9s21V8+BoU=
 kubepack.dev/preset v0.0.0-20220124043329-56dbfee25a9d h1:ITWBpmnSTvDoW3Av/lFw1K3x7k/u6AkVeQIecq7kEIA=
 kubepack.dev/preset v0.0.0-20220124043329-56dbfee25a9d/go.mod h1:dY5Tg+PoIfwtYRNaHVn/q9Suk/P3djObQQv4Wrm0jio=
 modernc.org/cc v1.0.0/go.mod h1:1Sk4//wdnYJiUIxnW8ddKpaOJCF37yAdqYnkxUpaYxw=
