@@ -20,6 +20,7 @@ require (
 	k8s.io/klog/v2 v2.9.0
 	k8s.io/kubectl v0.21.1
 	kmodules.xyz/client-go v0.0.0-20220118144149-f5289f79ff44
+	kmodules.xyz/resource-metadata v0.8.2-0.20220125095549-db846c365da9
 	kubepack.dev/kubepack v0.3.9-0.20220116143022-30c1dc0a58ab
 	kubepack.dev/lib-app v0.0.6-0.20220125094005-5c2d355823b5
 	kubepack.dev/lib-helm v0.3.2-0.20220125093010-400f2676b169
@@ -201,7 +202,6 @@ require (
 	k8s.io/utils v0.0.0-20210802155522-efc7438f0176 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
 	kmodules.xyz/apply v0.0.0-20210503080849-eb226c295465 // indirect
-	kmodules.xyz/resource-metadata v0.8.2-0.20220125092446-dd5f41895dcd // indirect
 	sigs.k8s.io/application v0.8.2-0.20200306235134-f10d9ca8abd4 // indirect
 	sigs.k8s.io/cli-utils v0.26.1 // indirect
 	sigs.k8s.io/kustomize/api v0.8.8 // indirect

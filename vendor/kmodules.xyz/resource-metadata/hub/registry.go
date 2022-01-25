@@ -271,7 +271,7 @@ func (r *Registry) Missing(in schema.GroupVersionResource) bool {
 	return true
 }
 
-func (r *Registry) findGVR(in *metav1.GroupKind, keepOfficialTypes bool) (schema.GroupVersionResource, bool) {
+func (r *Registry) FindGVR(in *metav1.GroupKind, keepOfficialTypes bool) (schema.GroupVersionResource, bool) {
 	r.m.RLock()
 	defer r.m.RUnlock()
 
@@ -493,7 +493,7 @@ func (r *Registry) createResourcePanel(namespace resourceclasses.UINamespace, ke
 				LayoutName: entry.LayoutName,
 			}
 			if entry.Type != nil {
-				gvr, ok := r.findGVR(entry.Type, keepOfficialTypes)
+				gvr, ok := r.FindGVR(entry.Type, keepOfficialTypes)
 				if !ok {
 					continue
 				}
