@@ -14974,7 +14974,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSection(ref common.Referenc
 							},
 						},
 					},
-					"entries": {
+					"items": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
 							Items: &spec.SchemaOrArray{
@@ -14988,7 +14988,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSection(ref common.Referenc
 						},
 					},
 				},
-				Required: []string{"entries"},
+				Required: []string{"items"},
 			},
 		},
 		Dependencies: []string{
@@ -15068,7 +15068,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSectionOutline(ref common.R
 							},
 						},
 					},
-					"entries": {
+					"items": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
 							Items: &spec.SchemaOrArray{
@@ -15082,7 +15082,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSectionOutline(ref common.R
 						},
 					},
 				},
-				Required: []string{"entries"},
+				Required: []string{"items"},
 			},
 		},
 		Dependencies: []string{
@@ -16227,7 +16227,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_ResourceClassSpec(ref common.Re
 							Format:  "int32",
 						},
 					},
-					"entries": {
+					"items": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
 							Items: &spec.SchemaOrArray{
@@ -16241,7 +16241,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_ResourceClassSpec(ref common.Re
 						},
 					},
 				},
-				Required: []string{"weight", "entries"},
+				Required: []string{"weight", "items"},
 			},
 		},
 		Dependencies: []string{

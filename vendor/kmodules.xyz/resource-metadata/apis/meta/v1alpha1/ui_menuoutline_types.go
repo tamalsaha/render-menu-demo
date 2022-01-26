@@ -50,7 +50,7 @@ type MenuOutlineSpec struct {
 
 type MenuSectionOutline struct {
 	*MenuSectionOverview `json:",inline,omitempty"`
-	Entries              []MenuEntry `json:"entries"`
+	Items                []MenuEntry `json:"items"`
 }
 
 type MenuSectionOverview struct {

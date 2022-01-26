@@ -32,8 +32,7 @@ type Menu struct {
 type MenuSection struct {
 	Name              string `json:"name,omitempty"`
 	ResourceClassInfo `json:",inline"`
-	Weight            int        `json:"-"`
-	Entries           []MenuItem `json:"entries"`
+	Items             []MenuItem `json:"items"`
 }
 
 type MenuItem struct {

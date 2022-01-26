@@ -333,8 +333,8 @@ func (in *MenuOutlineSpec) DeepCopy() *MenuOutlineSpec {
 func (in *MenuSection) DeepCopyInto(out *MenuSection) {
 	*out = *in
 	in.ResourceClassInfo.DeepCopyInto(&out.ResourceClassInfo)
-	if in.Entries != nil {
-		in, out := &in.Entries, &out.Entries
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
 		*out = make([]MenuItem, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
@@ -361,8 +361,8 @@ func (in *MenuSectionOutline) DeepCopyInto(out *MenuSectionOutline) {
 		*out = new(MenuSectionOverview)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.Entries != nil {
-		in, out := &in.Entries, &out.Entries
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
 		*out = make([]MenuEntry, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
@@ -1055,8 +1055,8 @@ func (in *ResourceClassList) DeepCopyObject() runtime.Object {
 func (in *ResourceClassSpec) DeepCopyInto(out *ResourceClassSpec) {
 	*out = *in
 	in.ResourceClassInfo.DeepCopyInto(&out.ResourceClassInfo)
-	if in.Entries != nil {
-		in, out := &in.Entries, &out.Entries
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
 		*out = make([]MenuEntry, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])

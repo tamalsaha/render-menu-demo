@@ -1,15 +1,15 @@
 package main
 
 import (
+	"sort"
+	"strings"
+
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub"
 	"kmodules.xyz/resource-metadata/hub/resourceclasses"
 	"kmodules.xyz/resource-metadata/hub/resourceoutlines"
-	"math"
-	"sort"
-	"strings"
 )
 
 const (
@@ -37,9 +37,9 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 		section := &v1alpha1.MenuSection{
 			Name:              rc.Name,
 			ResourceClassInfo: rc.Spec.ResourceClassInfo,
-			Weight:            rc.Spec.Weight,
+			// Weight:            rc.Spec.Weight,
 		}
-		for _, entry := range rc.Spec.Entries {
+		for _, entry := range rc.Spec.Items {
 			pe := v1alpha1.MenuItem{
 				Name:     entry.Name,
 				Path:     entry.Path,
@@ -70,7 +70,7 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 					}
 				}
 			}
-			section.Entries = append(section.Entries, pe)
+			section.Items = append(section.Items, pe)
 		}
 		sections[group] = section
 	}
@@ -89,14 +89,14 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 		section, found := sections[rd.Spec.Resource.Group]
 		if !found {
 			if rc, found := resourceclasses.KnownClasses[namespace][rd.Spec.Resource.Group]; found {
-				w := math.MaxInt16
-				if rc.Spec.Weight > 0 {
-					w = rc.Spec.Weight
-				}
+				//w := math.MaxInt16
+				//if rc.Spec.Weight > 0 {
+				//	w = rc.Spec.Weight
+				//}
 				section = &v1alpha1.MenuSection{
 					Name:              rc.Name,
 					ResourceClassInfo: rc.Spec.ResourceClassInfo,
-					Weight:            w,
+					// Weight:            w,
 				}
 			} else {
 				// unknown api group, so use CRD icon
@@ -106,13 +106,13 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 					ResourceClassInfo: v1alpha1.ResourceClassInfo{
 						APIGroup: rd.Spec.Resource.Group,
 					},
-					Weight: math.MaxInt16,
+					// Weight: math.MaxInt16,
 				}
 			}
 			sections[rd.Spec.Resource.Group] = section
 		}
 
-		section.Entries = append(section.Entries, v1alpha1.MenuItem{
+		section.Items = append(section.Items, v1alpha1.MenuItem{
 			Name:     rd.Spec.Resource.Kind,
 			Resource: &rd.Spec.Resource,
 			Icons:    rd.Spec.Icons,
@@ -132,8 +132,8 @@ func toPanel(in map[string]*v1alpha1.MenuSection) (*v1alpha1.Menu, error) {
 
 	for key, section := range in {
 		if !strings.HasSuffix(key, ".local") {
-			sort.Slice(section.Entries, func(i, j int) bool {
-				return section.Entries[i].Name < section.Entries[j].Name
+			sort.Slice(section.Items, func(i, j int) bool {
+				return section.Items[i].Name < section.Items[j].Name
 			})
 		}
 
@@ -148,9 +148,9 @@ func toPanel(in map[string]*v1alpha1.MenuSection) (*v1alpha1.Menu, error) {
 			}
 		}
 		// set icons for entries missing icon
-		for i := range section.Entries {
-			if len(section.Entries[i].Icons) == 0 {
-				section.Entries[i].Icons = []v1alpha1.ImageSpec{
+		for i := range section.Items {
+			if len(section.Items[i].Icons) == 0 {
+				section.Items[i].Icons = []v1alpha1.ImageSpec{
 					{
 						Source: crdIconSVG,
 						Type:   "image/svg+xml",
@@ -162,12 +162,12 @@ func toPanel(in map[string]*v1alpha1.MenuSection) (*v1alpha1.Menu, error) {
 		sections = append(sections, section)
 	}
 
-	sort.Slice(sections, func(i, j int) bool {
-		if sections[i].Weight == sections[j].Weight {
-			return sections[i].Name < sections[j].Name
-		}
-		return sections[i].Weight < sections[j].Weight
-	})
+	//sort.Slice(sections, func(i, j int) bool {
+	//	if sections[i].Weight == sections[j].Weight {
+	//		return sections[i].Name < sections[j].Name
+	//	}
+	//	return sections[i].Weight < sections[j].Weight
+	//})
 
 	return &v1alpha1.Menu{Sections: sections}, nil
 }
