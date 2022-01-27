@@ -624,3 +624,9 @@ var _ error = UnregisteredErr{}
 func (e UnregisteredErr) Error() string {
 	return e.t + " isn't registered"
 }
+
+func IsUnregisteredErr(err error) bool {
+	_, ok := err.(UnregisteredErr)
+	_, okp := err.(*UnregisteredErr)
+	return err != nil && (ok || okp)
+}
