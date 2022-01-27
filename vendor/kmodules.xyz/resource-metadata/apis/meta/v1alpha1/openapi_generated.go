@@ -14926,12 +14926,6 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSection(ref common.Referenc
 							Format: "",
 						},
 					},
-					"apiGroup": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
 					"icons": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Icons is an optional list of icons for an application. Icon information includes the source, size, and mime type.",
@@ -14941,34 +14935,6 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSection(ref common.Referenc
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
 										Ref:     ref("kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ImageSpec"),
-									},
-								},
-							},
-						},
-					},
-					"maintainers": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Maintainers is an optional list of maintainers of the application. The maintainers in this list maintain the the source code, images, and package for the application.",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ContactData"),
-									},
-								},
-							},
-						},
-					},
-					"links": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Links are a list of descriptive URLs intended to be used to surface additional documentation, dashboards, etc.",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kmodules.xyz/resource-metadata/apis/meta/v1alpha1.Link"),
 									},
 								},
 							},
@@ -14992,7 +14958,7 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuSection(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ContactData", "kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ImageSpec", "kmodules.xyz/resource-metadata/apis/meta/v1alpha1.Link", "kmodules.xyz/resource-metadata/apis/meta/v1alpha1.MenuItem"},
+			"kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ImageSpec", "kmodules.xyz/resource-metadata/apis/meta/v1alpha1.MenuItem"},
 	}
 }
 

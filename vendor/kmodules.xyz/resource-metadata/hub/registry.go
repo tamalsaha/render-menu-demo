@@ -478,8 +478,8 @@ func (r *Registry) createResourcePanel(namespace resourceclasses.UINamespace, ke
 		}
 
 		section := &v1alpha1.MenuSection{
-			Name:              rc.Name,
-			ResourceClassInfo: rc.Spec.ResourceClassInfo,
+			Name:  rc.Name,
+			Icons: rc.Spec.ResourceClassInfo.Icons,
 			// Weight:            rc.Spec.Weight,
 		}
 		for _, entry := range rc.Spec.Items {
@@ -537,8 +537,8 @@ func (r *Registry) createResourcePanel(namespace resourceclasses.UINamespace, ke
 				//	w = rc.Spec.Weight
 				//}
 				section = &v1alpha1.MenuSection{
-					Name:              rc.Name,
-					ResourceClassInfo: rc.Spec.ResourceClassInfo,
+					Name:  rc.Name,
+					Icons: rc.Spec.ResourceClassInfo.Icons,
 					// Weight:            w,
 				}
 			} else {
@@ -546,9 +546,9 @@ func (r *Registry) createResourcePanel(namespace resourceclasses.UINamespace, ke
 				name := resourceclasses.ResourceClassName(rd.Spec.Resource.Group)
 				section = &v1alpha1.MenuSection{
 					Name: name,
-					ResourceClassInfo: v1alpha1.ResourceClassInfo{
-						APIGroup: rd.Spec.Resource.Group,
-					},
+					//ResourceClassInfo: v1alpha1.ResourceClassInfo{
+					//	APIGroup: rd.Spec.Resource.Group,
+					//},
 					// Weight: math.MaxInt16,
 				}
 			}

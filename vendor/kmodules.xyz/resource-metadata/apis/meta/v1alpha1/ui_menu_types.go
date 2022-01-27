@@ -30,9 +30,11 @@ type Menu struct {
 }
 
 type MenuSection struct {
-	Name              string `json:"name,omitempty"`
-	ResourceClassInfo `json:",inline"`
-	Items             []MenuItem `json:"items"`
+	Name string `json:"name,omitempty"`
+	// Icons is an optional list of icons for an application. Icon information includes the source, size,
+	// and mime type.
+	Icons []ImageSpec `json:"icons,omitempty"`
+	Items []MenuItem  `json:"items"`
 }
 
 type MenuItem struct {
