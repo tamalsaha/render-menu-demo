@@ -2,17 +2,10 @@ package main
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/discovery"
-	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
-	"kmodules.xyz/resource-metadata/hub"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
-	"kmodules.xyz/resource-metadata/hub/resourceeditors"
-	"kmodules.xyz/resource-metadata/hub/resourceoutlines"
 	"sort"
-	"strings"
 )
 
 var defaultIcons = []v1alpha1.ImageSpec{
@@ -25,81 +18,33 @@ var defaultIcons = []v1alpha1.ImageSpec{
 func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
 	sectionIcons := map[string][]v1alpha1.ImageSpec{}
 	for _, m := range menuoutlines.List() {
-		for _, sec := range m.Spec.Sections {
+		for _, sec := range m.Sections {
 			if sec.AutoDiscoverAPIGroup != "" {
 				sectionIcons[sec.AutoDiscoverAPIGroup] = sec.Icons
 			}
 		}
 	}
 
-	reg := hub.NewRegistryOfKnownResources()
-
-	rsLists, err := client.ServerPreferredResources()
-	if err != nil && !discovery.IsGroupDiscoveryFailedError(err) {
+	out, err := GenerateMenuItems(client)
+	if err != nil {
 		return nil, err
 	}
 
-	sections := make([]*v1alpha1.MenuSection, 0, len(rsLists))
-	for _, rsList := range rsLists {
-		gv, err := schema.ParseGroupVersion(rsList.GroupVersion)
-		if err != nil {
-			return nil, err
-		}
-
+	sections := make([]*v1alpha1.MenuSection, 0, len(out))
+	for group, kinds := range out {
 		sec := v1alpha1.MenuSection{
-			MenuSectionInfo: &v1alpha1.MenuSectionInfo{
-				Name: menuoutlines.MenuSectionName(gv.Group),
+			MenuSectionInfo: v1alpha1.MenuSectionInfo{
+				Name: menuoutlines.MenuSectionName(group),
 			},
 		}
-		if icons, ok := sectionIcons[gv.Group]; ok {
+		if icons, ok := sectionIcons[group]; ok {
 			sec.Icons = icons
 		} else {
 			sec.Icons = defaultIcons
 		}
 
-		for _, rs := range rsList.APIResources {
-			// skip sub resource
-			if strings.ContainsRune(rs.Name, '/') {
-				continue
-			}
-
-			// if resource can't be listed or read (get) or only view type skip it
-			verbs := sets.NewString(rs.Verbs...)
-			if !verbs.HasAll("list", "get", "watch", "create") {
-				continue
-			}
-
-			scope := kmapi.ClusterScoped
-			if rs.Namespaced {
-				scope = kmapi.NamespaceScoped
-			}
-			rid := kmapi.ResourceID{
-				Group:   gv.Group,
-				Version: gv.Version,
-				Name:    rs.Name,
-				Kind:    rs.Kind,
-				Scope:   scope,
-			}
-			gvr := rid.GroupVersionResource()
-
-			me := v1alpha1.MenuItem{
-				Name:       rid.Kind,
-				Path:       "",
-				Resource:   &rid,
-				Missing:    false,
-				Required:   false,
-				LayoutName: resourceoutlines.DefaultLayoutName(gvr),
-				// Icons:    rd.Spec.Icons,
-				// Installer:  rd.Spec.Installer,
-			}
-			if rd, err := reg.LoadByGVR(gvr); err == nil {
-				me.Icons = rd.Spec.Icons
-			}
-			if rd, ok := resourceeditors.LoadForGVR(gvr); ok {
-				me.Installer = rd.Spec.Installer
-			}
-
-			sec.Items = append(sec.Items, me) // variants
+		for _, item := range kinds {
+			sec.Items = append(sec.Items, *item) // variants
 		}
 		sort.Slice(sec.Items, func(i, j int) bool {
 			return sec.Items[i].Name < sec.Items[j].Name

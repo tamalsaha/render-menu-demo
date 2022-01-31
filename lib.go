@@ -35,7 +35,7 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 		}
 
 		section := &v1alpha1.MenuSection{
-			MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+			MenuSectionInfo: v1alpha1.MenuSectionInfo{
 				Name:  rc.Name,
 				Icons: rc.Spec.ResourceClassInfo.Icons,
 			},
@@ -96,7 +96,7 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 				//	w = rc.Spec.Weight
 				//}
 				section = &v1alpha1.MenuSection{
-					MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+					MenuSectionInfo: v1alpha1.MenuSectionInfo{
 						Name:  rc.Name,
 						Icons: rc.Spec.ResourceClassInfo.Icons,
 					},
@@ -106,7 +106,7 @@ func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace,
 				// unknown api group, so use CRD icon
 				name := resourceclasses.ResourceClassName(rd.Spec.Resource.Group)
 				section = &v1alpha1.MenuSection{
-					MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+					MenuSectionInfo: v1alpha1.MenuSectionInfo{
 						Name: name,
 					},
 					//ResourceClassInfo: v1alpha1.ResourceClassInfo{
