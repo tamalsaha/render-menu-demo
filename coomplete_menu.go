@@ -1,11 +1,12 @@
 package main
 
 import (
+	"sort"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
-	"sort"
 )
 
 var defaultIcons = []v1alpha1.ImageSpec{
