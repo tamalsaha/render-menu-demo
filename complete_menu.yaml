@@ -578,6 +578,19 @@ sections:
   - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
     type: image/svg+xml
   items:
+  - layoutName: policy-v1-poddisruptionbudgets
+    name: PodDisruptionBudget
+    resource:
+      group: policy
+      kind: PodDisruptionBudget
+      name: poddisruptionbudgets
+      scope: Namespaced
+      version: v1
+  name: Policy
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
   - icons:
     - src: https://cdn.appscode.com/k8s/icons/policy/podsecuritypolicies.svg
       type: image/svg+xml
@@ -591,19 +604,6 @@ sections:
       name: podsecuritypolicies
       scope: Cluster
       version: v1beta1
-  name: Policy
-- icons:
-  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
-    type: image/svg+xml
-  items:
-  - layoutName: policy-v1-poddisruptionbudgets
-    name: PodDisruptionBudget
-    resource:
-      group: policy
-      kind: PodDisruptionBudget
-      name: poddisruptionbudgets
-      scope: Namespaced
-      version: v1
   name: Policy
 - icons:
   - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
@@ -688,4 +688,46 @@ sections:
       scope: Namespaced
       version: v1beta1
   name: Storage
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: charts.x-helm.dev-v1alpha1-chartpresets
+    name: ChartPreset
+    resource:
+      group: charts.x-helm.dev
+      kind: ChartPreset
+      name: chartpresets
+      scope: Namespaced
+      version: v1alpha1
+  - layoutName: charts.x-helm.dev-v1alpha1-clusterchartpresets
+    name: ClusterChartPreset
+    resource:
+      group: charts.x-helm.dev
+      kind: ClusterChartPreset
+      name: clusterchartpresets
+      scope: Cluster
+      version: v1alpha1
+  - layoutName: charts.x-helm.dev-v1alpha1-vendorchartpresets
+    name: VendorChartPreset
+    resource:
+      group: charts.x-helm.dev
+      kind: VendorChartPreset
+      name: vendorchartpresets
+      scope: Cluster
+      version: v1alpha1
+  name: X Helm Chart
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: store.x-helm.dev-v1alpha1-chartregistries
+    name: ChartRegistry
+    resource:
+      group: store.x-helm.dev
+      kind: ChartRegistry
+      name: chartregistries
+      scope: Cluster
+      version: v1alpha1
+  name: X Helm Store
 
