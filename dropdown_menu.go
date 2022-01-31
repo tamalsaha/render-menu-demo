@@ -6,7 +6,6 @@ import (
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
@@ -20,16 +19,8 @@ import (
 	"sort"
 )
 
-type DropDownMenuOptions struct {
-	MenuName string `json:"menuName"`
-	// +optional
-	SectionName *string `json:"sectionName,omitempty"`
-	// +optional
-	Type *schema.GroupKind `json:"type,omitempty"`
-}
-
-func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts DropDownMenuOptions) (*v1alpha1.Menu, error) {
-	mo, err := menuoutlines.LoadByName(opts.MenuName)
+func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts v1alpha1.RenderMenuRequest) (*v1alpha1.Menu, error) {
+	mo, err := menuoutlines.LoadByName(opts.Menu)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +40,7 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 	}
 
 	for _, so := range mo.Sections {
-		if opts.SectionName != nil && so.Name != *opts.SectionName {
+		if opts.Section != nil && so.Name != *opts.Section {
 			continue
 		}
 
