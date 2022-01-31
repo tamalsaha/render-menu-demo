@@ -31,14 +31,16 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type Menu struct {
-	metav1.TypeMeta  `json:",inline"`
-	*MenuSectionInfo `json:",inline,omitempty"`
-	Sections         []*MenuSection `json:"sections,omitempty"`
+	metav1.TypeMeta `json:",inline"`
+	// +optional
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Home              *MenuSectionInfo `json:"home,omitempty"`
+	Sections          []*MenuSection   `json:"sections,omitempty"`
 }
 
 type MenuSection struct {
-	*MenuSectionInfo `json:",inline,omitempty"`
-	Items            []MenuItem `json:"items"`
+	MenuSectionInfo `json:",inline,omitempty"`
+	Items           []MenuItem `json:"items"`
 }
 
 type MenuItem struct {
