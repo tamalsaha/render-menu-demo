@@ -15,14 +15,23 @@ import (
 	"strings"
 )
 
-func gensectionIcons() {
-	mp := map[string][]v1alpha1.ImageSpec{}
-	for _, m := range menuoutlines.List() {
-	
-	}
+var defaultIcons = []v1alpha1.ImageSpec{
+	{
+		Source: crdIconSVG,
+		Type:   "image/svg+xml",
+	},
 }
 
 func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
+	sectionIcons := map[string][]v1alpha1.ImageSpec{}
+	for _, m := range menuoutlines.List() {
+		for _, sec := range m.Spec.Sections {
+			if sec.AutoDiscoverAPIGroup != "" {
+				sectionIcons[sec.AutoDiscoverAPIGroup] = sec.Icons
+			}
+		}
+	}
+
 	reg := hub.NewRegistryOfKnownResources()
 
 	rsLists, err := client.ServerPreferredResources()
@@ -39,12 +48,11 @@ func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.
 
 		sec := v1alpha1.MenuSection{
 			Name: menuoutlines.MenuSectionName(gv.Group),
-			Icons: []v1alpha1.ImageSpec{
-				{
-					Source: crdIconSVG,
-					Type:   "image/svg+xml",
-				},
-			},
+		}
+		if icons, ok := sectionIcons[gv.Group]; ok {
+			sec.Icons = icons
+		} else {
+			sec.Icons = defaultIcons
 		}
 
 		for _, rs := range rsList.APIResources {

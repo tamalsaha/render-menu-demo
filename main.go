@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"k8s.io/client-go/kubernetes"
 	"net/http"
 	"path"
 	"path/filepath"
@@ -66,6 +68,32 @@ var (
 )
 
 func main() {
+	flag.StringVar(&masterURL, "master", masterURL, "The address of the Kubernetes API server (overrides any value in kubeconfig)")
+	flag.StringVar(&kubeconfigPath, "kubeconfig", kubeconfigPath, "Path to kubeconfig file with authorization information (the master location is set by the master flag).")
+	flag.StringVar(&url, "url", url, "Chart repo url")
+	flag.StringVar(&name, "name", name, "Name of bundle")
+	flag.StringVar(&version, "version", version, "Version of bundle")
+	flag.Parse()
+
+	cc := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfigPath},
+		&clientcmd.ConfigOverrides{ClusterInfo: clientcmdapi.Cluster{Server: masterURL}})
+	cfg, err := cc.ClientConfig()
+	if err != nil {
+		klog.Fatal(err)
+	}
+
+	client := kubernetes.NewForConfigOrDie(cfg)
+
+	menu, err := GenerateCompleteMenu(client.Discovery())
+	if err != nil {
+		klog.Fatal(err)
+	}
+	data, _ := json.MarshalIndent(menu, "", "  ")
+	fmt.Println(string(data))
+}
+
+func main__() {
 	flag.StringVar(&masterURL, "master", masterURL, "The address of the Kubernetes API server (overrides any value in kubeconfig)")
 	flag.StringVar(&kubeconfigPath, "kubeconfig", kubeconfigPath, "Path to kubeconfig file with authorization information (the master location is set by the master flag).")
 	flag.StringVar(&url, "url", url, "Chart repo url")
