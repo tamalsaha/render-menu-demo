@@ -1,1155 +1,691 @@
-{
-  "kind": "MenuOutline",
-  "apiVersion": "meta.k8s.appscode.com/v1alpha1",
-  "sections": [
-    {
-      "name": "Admissionregistration",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "MutatingWebhookConfiguration",
-          "resource": {
-            "group": "admissionregistration.k8s.io",
-            "version": "v1",
-            "name": "mutatingwebhookconfigurations",
-            "kind": "MutatingWebhookConfiguration",
-            "scope": "Cluster"
-          },
-          "layoutName": "admissionregistration.k8s.io-v1-mutatingwebhookconfigurations",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/mutatingwebhookconfigurations.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/mutatingwebhookconfigurations.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "ValidatingWebhookConfiguration",
-          "resource": {
-            "group": "admissionregistration.k8s.io",
-            "version": "v1",
-            "name": "validatingwebhookconfigurations",
-            "kind": "ValidatingWebhookConfiguration",
-            "scope": "Cluster"
-          },
-          "layoutName": "admissionregistration.k8s.io-v1-validatingwebhookconfigurations",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/validatingwebhookconfigurations.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/validatingwebhookconfigurations.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Apiextension",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "CustomResourceDefinition",
-          "resource": {
-            "group": "apiextensions.k8s.io",
-            "version": "v1",
-            "name": "customresourcedefinitions",
-            "kind": "CustomResourceDefinition",
-            "scope": "Cluster"
-          },
-          "layoutName": "apiextensions.k8s.io-v1-customresourcedefinitions",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Apiregistration",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "APIService",
-          "resource": {
-            "group": "apiregistration.k8s.io",
-            "version": "v1",
-            "name": "apiservices",
-            "kind": "APIService",
-            "scope": "Cluster"
-          },
-          "layoutName": "apiregistration.k8s.io-v1-apiservices",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apiregistration.k8s.io/apiservices.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apiregistration.k8s.io/apiservices.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Apiserver Flowcontrol",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "FlowSchema",
-          "resource": {
-            "group": "flowcontrol.apiserver.k8s.io",
-            "version": "v1beta2",
-            "name": "flowschemas",
-            "kind": "FlowSchema",
-            "scope": "Cluster"
-          },
-          "layoutName": "flowcontrol.apiserver.k8s.io-v1beta2-flowschemas"
-        },
-        {
-          "name": "PriorityLevelConfiguration",
-          "resource": {
-            "group": "flowcontrol.apiserver.k8s.io",
-            "version": "v1beta2",
-            "name": "prioritylevelconfigurations",
-            "kind": "PriorityLevelConfiguration",
-            "scope": "Cluster"
-          },
-          "layoutName": "flowcontrol.apiserver.k8s.io-v1beta2-prioritylevelconfigurations"
-        }
-      ]
-    },
-    {
-      "name": "App",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "ControllerRevision",
-          "resource": {
-            "group": "apps",
-            "version": "v1",
-            "name": "controllerrevisions",
-            "kind": "ControllerRevision",
-            "scope": "Namespaced"
-          },
-          "layoutName": "apps-v1-controllerrevisions"
-        },
-        {
-          "name": "DaemonSet",
-          "resource": {
-            "group": "apps",
-            "version": "v1",
-            "name": "daemonsets",
-            "kind": "DaemonSet",
-            "scope": "Namespaced"
-          },
-          "layoutName": "apps-v1-daemonsets",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/daemonsets.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/daemonsets.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Deployment",
-          "resource": {
-            "group": "apps",
-            "version": "v1",
-            "name": "deployments",
-            "kind": "Deployment",
-            "scope": "Namespaced"
-          },
-          "layoutName": "apps-v1-deployments",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/deployments.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/deployments.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "ReplicaSet",
-          "resource": {
-            "group": "apps",
-            "version": "v1",
-            "name": "replicasets",
-            "kind": "ReplicaSet",
-            "scope": "Namespaced"
-          },
-          "layoutName": "apps-v1-replicasets",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/replicasets.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/replicasets.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "StatefulSet",
-          "resource": {
-            "group": "apps",
-            "version": "v1",
-            "name": "statefulsets",
-            "kind": "StatefulSet",
-            "scope": "Namespaced"
-          },
-          "layoutName": "apps-v1-statefulsets",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/statefulsets.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/apps/statefulsets.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Authorization Rbac",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "ClusterRole",
-          "resource": {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "name": "clusterroles",
-            "kind": "ClusterRole",
-            "scope": "Cluster"
-          },
-          "layoutName": "rbac.authorization.k8s.io-v1-clusterroles",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterroles.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterroles.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "ClusterRoleBinding",
-          "resource": {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "name": "clusterrolebindings",
-            "kind": "ClusterRoleBinding",
-            "scope": "Cluster"
-          },
-          "layoutName": "rbac.authorization.k8s.io-v1-clusterrolebindings",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterrolebindings.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterrolebindings.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Role",
-          "resource": {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "name": "roles",
-            "kind": "Role",
-            "scope": "Namespaced"
-          },
-          "layoutName": "rbac.authorization.k8s.io-v1-roles",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/roles.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/roles.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "RoleBinding",
-          "resource": {
-            "group": "rbac.authorization.k8s.io",
-            "version": "v1",
-            "name": "rolebindings",
-            "kind": "RoleBinding",
-            "scope": "Namespaced"
-          },
-          "layoutName": "rbac.authorization.k8s.io-v1-rolebindings",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/rolebindings.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/rolebindings.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Autoscaling",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "HorizontalPodAutoscaler",
-          "resource": {
-            "group": "autoscaling",
-            "version": "v2",
-            "name": "horizontalpodautoscalers",
-            "kind": "HorizontalPodAutoscaler",
-            "scope": "Namespaced"
-          },
-          "layoutName": "autoscaling-v2-horizontalpodautoscalers"
-        }
-      ]
-    },
-    {
-      "name": "Batch",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "CronJob",
-          "resource": {
-            "group": "batch",
-            "version": "v1",
-            "name": "cronjobs",
-            "kind": "CronJob",
-            "scope": "Namespaced"
-          },
-          "layoutName": "batch-v1-cronjobs",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/batch/cronjobs.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/batch/cronjobs.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Job",
-          "resource": {
-            "group": "batch",
-            "version": "v1",
-            "name": "jobs",
-            "kind": "Job",
-            "scope": "Namespaced"
-          },
-          "layoutName": "batch-v1-jobs",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/batch/jobs.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/batch/jobs.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Certificate",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "CertificateSigningRequest",
-          "resource": {
-            "group": "certificates.k8s.io",
-            "version": "v1",
-            "name": "certificatesigningrequests",
-            "kind": "CertificateSigningRequest",
-            "scope": "Cluster"
-          },
-          "layoutName": "certificates.k8s.io-v1-certificatesigningrequests",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/certificates.k8s.io/certificatesigningrequests.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/certificates.k8s.io/certificatesigningrequests.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Coordination",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "Lease",
-          "resource": {
-            "group": "coordination.k8s.io",
-            "version": "v1",
-            "name": "leases",
-            "kind": "Lease",
-            "scope": "Namespaced"
-          },
-          "layoutName": "coordination.k8s.io-v1-leases",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/coordination.k8s.io/leases.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/coordination.k8s.io/leases.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Core",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "ConfigMap",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "configmaps",
-            "kind": "ConfigMap",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-configmaps",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/configmaps.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/configmaps.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Endpoints",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "endpoints",
-            "kind": "Endpoints",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-endpoints",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/endpoints.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/endpoints.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Event",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "events",
-            "kind": "Event",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-events",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/events.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/events.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "LimitRange",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "limitranges",
-            "kind": "LimitRange",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-limitranges",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/limitranges.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/limitranges.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Namespace",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "namespaces",
-            "kind": "Namespace",
-            "scope": "Cluster"
-          },
-          "layoutName": "core-v1-namespaces",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/namespaces.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/namespaces.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Node",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "nodes",
-            "kind": "Node",
-            "scope": "Cluster"
-          },
-          "layoutName": "core-v1-nodes",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/nodes.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/nodes.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "PersistentVolume",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "persistentvolumes",
-            "kind": "PersistentVolume",
-            "scope": "Cluster"
-          },
-          "layoutName": "core-v1-persistentvolumes",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/persistentvolumes.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/persistentvolumes.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "PersistentVolumeClaim",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "persistentvolumeclaims",
-            "kind": "PersistentVolumeClaim",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-persistentvolumeclaims",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/persistentvolumeclaims.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/persistentvolumeclaims.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Pod",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "pods",
-            "kind": "Pod",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-pods",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/pods.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/pods.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "PodTemplate",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "podtemplates",
-            "kind": "PodTemplate",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-podtemplates"
-        },
-        {
-          "name": "ReplicationController",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "replicationcontrollers",
-            "kind": "ReplicationController",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-replicationcontrollers",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/replicationcontrollers.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/replicationcontrollers.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "ResourceQuota",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "resourcequotas",
-            "kind": "ResourceQuota",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-resourcequotas",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/resourcequotas.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/resourcequotas.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Secret",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "secrets",
-            "kind": "Secret",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-secrets",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/secrets.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/secrets.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "Service",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "services",
-            "kind": "Service",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-services",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/services.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/services.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "ServiceAccount",
-          "resource": {
-            "group": "",
-            "version": "v1",
-            "name": "serviceaccounts",
-            "kind": "ServiceAccount",
-            "scope": "Namespaced"
-          },
-          "layoutName": "core-v1-serviceaccounts",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/serviceaccounts.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/core/serviceaccounts.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Discovery",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "EndpointSlice",
-          "resource": {
-            "group": "discovery.k8s.io",
-            "version": "v1",
-            "name": "endpointslices",
-            "kind": "EndpointSlice",
-            "scope": "Namespaced"
-          },
-          "layoutName": "discovery.k8s.io-v1-endpointslices"
-        }
-      ]
-    },
-    {
-      "name": "Event",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "Event",
-          "resource": {
-            "group": "events.k8s.io",
-            "version": "v1",
-            "name": "events",
-            "kind": "Event",
-            "scope": "Namespaced"
-          },
-          "layoutName": "events.k8s.io-v1-events",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/events.k8s.io/events.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/events.k8s.io/events.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Networking",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "Ingress",
-          "resource": {
-            "group": "networking.k8s.io",
-            "version": "v1",
-            "name": "ingresses",
-            "kind": "Ingress",
-            "scope": "Namespaced"
-          },
-          "layoutName": "networking.k8s.io-v1-ingresses",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/networking.k8s.io/ingresses.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/networking.k8s.io/ingresses.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "IngressClass",
-          "resource": {
-            "group": "networking.k8s.io",
-            "version": "v1",
-            "name": "ingressclasses",
-            "kind": "IngressClass",
-            "scope": "Cluster"
-          },
-          "layoutName": "networking.k8s.io-v1-ingressclasses"
-        },
-        {
-          "name": "NetworkPolicy",
-          "resource": {
-            "group": "networking.k8s.io",
-            "version": "v1",
-            "name": "networkpolicies",
-            "kind": "NetworkPolicy",
-            "scope": "Namespaced"
-          },
-          "layoutName": "networking.k8s.io-v1-networkpolicies",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/networking.k8s.io/networkpolicies.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/networking.k8s.io/networkpolicies.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Node",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "RuntimeClass",
-          "resource": {
-            "group": "node.k8s.io",
-            "version": "v1",
-            "name": "runtimeclasses",
-            "kind": "RuntimeClass",
-            "scope": "Cluster"
-          },
-          "layoutName": "node.k8s.io-v1-runtimeclasses",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/node.k8s.io/runtimeclasses.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/node.k8s.io/runtimeclasses.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Policy",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "PodSecurityPolicy",
-          "resource": {
-            "group": "policy",
-            "version": "v1beta1",
-            "name": "podsecuritypolicies",
-            "kind": "PodSecurityPolicy",
-            "scope": "Cluster"
-          },
-          "layoutName": "policy-v1beta1-podsecuritypolicies",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/policy/podsecuritypolicies.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/policy/podsecuritypolicies.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Policy",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "PodDisruptionBudget",
-          "resource": {
-            "group": "policy",
-            "version": "v1",
-            "name": "poddisruptionbudgets",
-            "kind": "PodDisruptionBudget",
-            "scope": "Namespaced"
-          },
-          "layoutName": "policy-v1-poddisruptionbudgets"
-        }
-      ]
-    },
-    {
-      "name": "Scheduling",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "PriorityClass",
-          "resource": {
-            "group": "scheduling.k8s.io",
-            "version": "v1",
-            "name": "priorityclasses",
-            "kind": "PriorityClass",
-            "scope": "Cluster"
-          },
-          "layoutName": "scheduling.k8s.io-v1-priorityclasses",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/scheduling.k8s.io/priorityclasses.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/scheduling.k8s.io/priorityclasses.png",
-              "type": "image/png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Storage",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "CSIDriver",
-          "resource": {
-            "group": "storage.k8s.io",
-            "version": "v1",
-            "name": "csidrivers",
-            "kind": "CSIDriver",
-            "scope": "Cluster"
-          },
-          "layoutName": "storage.k8s.io-v1-csidrivers",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/storage.k8s.io/csidrivers.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/storage.k8s.io/csidrivers.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "CSINode",
-          "resource": {
-            "group": "storage.k8s.io",
-            "version": "v1",
-            "name": "csinodes",
-            "kind": "CSINode",
-            "scope": "Cluster"
-          },
-          "layoutName": "storage.k8s.io-v1-csinodes",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/storage.k8s.io/csinodes.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/storage.k8s.io/csinodes.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "StorageClass",
-          "resource": {
-            "group": "storage.k8s.io",
-            "version": "v1",
-            "name": "storageclasses",
-            "kind": "StorageClass",
-            "scope": "Cluster"
-          },
-          "layoutName": "storage.k8s.io-v1-storageclasses",
-          "icons": [
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/storage.k8s.io/storageclasses.svg",
-              "type": "image/svg+xml"
-            },
-            {
-              "src": "https://cdn.appscode.com/k8s/icons/storage.k8s.io/storageclasses.png",
-              "type": "image/png"
-            }
-          ]
-        },
-        {
-          "name": "VolumeAttachment",
-          "resource": {
-            "group": "storage.k8s.io",
-            "version": "v1",
-            "name": "volumeattachments",
-            "kind": "VolumeAttachment",
-            "scope": "Cluster"
-          },
-          "layoutName": "storage.k8s.io-v1-volumeattachments"
-        }
-      ]
-    },
-    {
-      "name": "Storage",
-      "icons": [
-        {
-          "src": "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg",
-          "type": "image/svg+xml"
-        }
-      ],
-      "items": [
-        {
-          "name": "CSIStorageCapacity",
-          "resource": {
-            "group": "storage.k8s.io",
-            "version": "v1beta1",
-            "name": "csistoragecapacities",
-            "kind": "CSIStorageCapacity",
-            "scope": "Namespaced"
-          },
-          "layoutName": "storage.k8s.io-v1beta1-csistoragecapacities"
-        }
-      ]
-    }
-  ]
-}
+apiVersion: meta.k8s.appscode.com/v1alpha1
+kind: MenuOutline
+sections:
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/mutatingwebhookconfigurations.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/mutatingwebhookconfigurations.png
+      type: image/png
+    layoutName: admissionregistration.k8s.io-v1-mutatingwebhookconfigurations
+    name: MutatingWebhookConfiguration
+    resource:
+      group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: mutatingwebhookconfigurations
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/validatingwebhookconfigurations.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/admissionregistration.k8s.io/validatingwebhookconfigurations.png
+      type: image/png
+    layoutName: admissionregistration.k8s.io-v1-validatingwebhookconfigurations
+    name: ValidatingWebhookConfiguration
+    resource:
+      group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: validatingwebhookconfigurations
+      scope: Cluster
+      version: v1
+  name: Admissionregistration
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.png
+      type: image/png
+    layoutName: apiextensions.k8s.io-v1-customresourcedefinitions
+    name: CustomResourceDefinition
+    resource:
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: customresourcedefinitions
+      scope: Cluster
+      version: v1
+  name: Apiextension
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/apiregistration.k8s.io/apiservices.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/apiregistration.k8s.io/apiservices.png
+      type: image/png
+    layoutName: apiregistration.k8s.io-v1-apiservices
+    name: APIService
+    resource:
+      group: apiregistration.k8s.io
+      kind: APIService
+      name: apiservices
+      scope: Cluster
+      version: v1
+  name: Apiregistration
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: flowcontrol.apiserver.k8s.io-v1beta2-flowschemas
+    name: FlowSchema
+    resource:
+      group: flowcontrol.apiserver.k8s.io
+      kind: FlowSchema
+      name: flowschemas
+      scope: Cluster
+      version: v1beta2
+  - layoutName: flowcontrol.apiserver.k8s.io-v1beta2-prioritylevelconfigurations
+    name: PriorityLevelConfiguration
+    resource:
+      group: flowcontrol.apiserver.k8s.io
+      kind: PriorityLevelConfiguration
+      name: prioritylevelconfigurations
+      scope: Cluster
+      version: v1beta2
+  name: Apiserver Flowcontrol
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: apps-v1-controllerrevisions
+    name: ControllerRevision
+    resource:
+      group: apps
+      kind: ControllerRevision
+      name: controllerrevisions
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/apps/daemonsets.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/apps/daemonsets.png
+      type: image/png
+    layoutName: apps-v1-daemonsets
+    name: DaemonSet
+    resource:
+      group: apps
+      kind: DaemonSet
+      name: daemonsets
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/apps/deployments.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/apps/deployments.png
+      type: image/png
+    layoutName: apps-v1-deployments
+    name: Deployment
+    resource:
+      group: apps
+      kind: Deployment
+      name: deployments
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/apps/replicasets.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/apps/replicasets.png
+      type: image/png
+    layoutName: apps-v1-replicasets
+    name: ReplicaSet
+    resource:
+      group: apps
+      kind: ReplicaSet
+      name: replicasets
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/apps/statefulsets.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/apps/statefulsets.png
+      type: image/png
+    layoutName: apps-v1-statefulsets
+    name: StatefulSet
+    resource:
+      group: apps
+      kind: StatefulSet
+      name: statefulsets
+      scope: Namespaced
+      version: v1
+  name: App
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterroles.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterroles.png
+      type: image/png
+    layoutName: rbac.authorization.k8s.io-v1-clusterroles
+    name: ClusterRole
+    resource:
+      group: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: clusterroles
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterrolebindings.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/clusterrolebindings.png
+      type: image/png
+    layoutName: rbac.authorization.k8s.io-v1-clusterrolebindings
+    name: ClusterRoleBinding
+    resource:
+      group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+      name: clusterrolebindings
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/roles.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/roles.png
+      type: image/png
+    layoutName: rbac.authorization.k8s.io-v1-roles
+    name: Role
+    resource:
+      group: rbac.authorization.k8s.io
+      kind: Role
+      name: roles
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/rolebindings.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/rbac.authorization.k8s.io/rolebindings.png
+      type: image/png
+    layoutName: rbac.authorization.k8s.io-v1-rolebindings
+    name: RoleBinding
+    resource:
+      group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: rolebindings
+      scope: Namespaced
+      version: v1
+  name: Authorization Rbac
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: autoscaling-v2-horizontalpodautoscalers
+    name: HorizontalPodAutoscaler
+    resource:
+      group: autoscaling
+      kind: HorizontalPodAutoscaler
+      name: horizontalpodautoscalers
+      scope: Namespaced
+      version: v2
+  name: Autoscaling
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/batch/cronjobs.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/batch/cronjobs.png
+      type: image/png
+    layoutName: batch-v1-cronjobs
+    name: CronJob
+    resource:
+      group: batch
+      kind: CronJob
+      name: cronjobs
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/batch/jobs.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/batch/jobs.png
+      type: image/png
+    layoutName: batch-v1-jobs
+    name: Job
+    resource:
+      group: batch
+      kind: Job
+      name: jobs
+      scope: Namespaced
+      version: v1
+  name: Batch
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/certificates.k8s.io/certificatesigningrequests.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/certificates.k8s.io/certificatesigningrequests.png
+      type: image/png
+    layoutName: certificates.k8s.io-v1-certificatesigningrequests
+    name: CertificateSigningRequest
+    resource:
+      group: certificates.k8s.io
+      kind: CertificateSigningRequest
+      name: certificatesigningrequests
+      scope: Cluster
+      version: v1
+  name: Certificate
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/coordination.k8s.io/leases.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/coordination.k8s.io/leases.png
+      type: image/png
+    layoutName: coordination.k8s.io-v1-leases
+    name: Lease
+    resource:
+      group: coordination.k8s.io
+      kind: Lease
+      name: leases
+      scope: Namespaced
+      version: v1
+  name: Coordination
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/configmaps.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/configmaps.png
+      type: image/png
+    layoutName: core-v1-configmaps
+    name: ConfigMap
+    resource:
+      group: ""
+      kind: ConfigMap
+      name: configmaps
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/endpoints.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/endpoints.png
+      type: image/png
+    layoutName: core-v1-endpoints
+    name: Endpoints
+    resource:
+      group: ""
+      kind: Endpoints
+      name: endpoints
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/events.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/events.png
+      type: image/png
+    layoutName: core-v1-events
+    name: Event
+    resource:
+      group: ""
+      kind: Event
+      name: events
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/limitranges.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/limitranges.png
+      type: image/png
+    layoutName: core-v1-limitranges
+    name: LimitRange
+    resource:
+      group: ""
+      kind: LimitRange
+      name: limitranges
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/namespaces.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/namespaces.png
+      type: image/png
+    layoutName: core-v1-namespaces
+    name: Namespace
+    resource:
+      group: ""
+      kind: Namespace
+      name: namespaces
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/nodes.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/nodes.png
+      type: image/png
+    layoutName: core-v1-nodes
+    name: Node
+    resource:
+      group: ""
+      kind: Node
+      name: nodes
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/persistentvolumes.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/persistentvolumes.png
+      type: image/png
+    layoutName: core-v1-persistentvolumes
+    name: PersistentVolume
+    resource:
+      group: ""
+      kind: PersistentVolume
+      name: persistentvolumes
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/persistentvolumeclaims.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/persistentvolumeclaims.png
+      type: image/png
+    layoutName: core-v1-persistentvolumeclaims
+    name: PersistentVolumeClaim
+    resource:
+      group: ""
+      kind: PersistentVolumeClaim
+      name: persistentvolumeclaims
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/pods.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/pods.png
+      type: image/png
+    layoutName: core-v1-pods
+    name: Pod
+    resource:
+      group: ""
+      kind: Pod
+      name: pods
+      scope: Namespaced
+      version: v1
+  - layoutName: core-v1-podtemplates
+    name: PodTemplate
+    resource:
+      group: ""
+      kind: PodTemplate
+      name: podtemplates
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/replicationcontrollers.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/replicationcontrollers.png
+      type: image/png
+    layoutName: core-v1-replicationcontrollers
+    name: ReplicationController
+    resource:
+      group: ""
+      kind: ReplicationController
+      name: replicationcontrollers
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/resourcequotas.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/resourcequotas.png
+      type: image/png
+    layoutName: core-v1-resourcequotas
+    name: ResourceQuota
+    resource:
+      group: ""
+      kind: ResourceQuota
+      name: resourcequotas
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/secrets.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/secrets.png
+      type: image/png
+    layoutName: core-v1-secrets
+    name: Secret
+    resource:
+      group: ""
+      kind: Secret
+      name: secrets
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/services.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/services.png
+      type: image/png
+    layoutName: core-v1-services
+    name: Service
+    resource:
+      group: ""
+      kind: Service
+      name: services
+      scope: Namespaced
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/core/serviceaccounts.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/core/serviceaccounts.png
+      type: image/png
+    layoutName: core-v1-serviceaccounts
+    name: ServiceAccount
+    resource:
+      group: ""
+      kind: ServiceAccount
+      name: serviceaccounts
+      scope: Namespaced
+      version: v1
+  name: Core
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: discovery.k8s.io-v1-endpointslices
+    name: EndpointSlice
+    resource:
+      group: discovery.k8s.io
+      kind: EndpointSlice
+      name: endpointslices
+      scope: Namespaced
+      version: v1
+  name: Discovery
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/events.k8s.io/events.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/events.k8s.io/events.png
+      type: image/png
+    layoutName: events.k8s.io-v1-events
+    name: Event
+    resource:
+      group: events.k8s.io
+      kind: Event
+      name: events
+      scope: Namespaced
+      version: v1
+  name: Event
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/networking.k8s.io/ingresses.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/networking.k8s.io/ingresses.png
+      type: image/png
+    layoutName: networking.k8s.io-v1-ingresses
+    name: Ingress
+    resource:
+      group: networking.k8s.io
+      kind: Ingress
+      name: ingresses
+      scope: Namespaced
+      version: v1
+  - layoutName: networking.k8s.io-v1-ingressclasses
+    name: IngressClass
+    resource:
+      group: networking.k8s.io
+      kind: IngressClass
+      name: ingressclasses
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/networking.k8s.io/networkpolicies.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/networking.k8s.io/networkpolicies.png
+      type: image/png
+    layoutName: networking.k8s.io-v1-networkpolicies
+    name: NetworkPolicy
+    resource:
+      group: networking.k8s.io
+      kind: NetworkPolicy
+      name: networkpolicies
+      scope: Namespaced
+      version: v1
+  name: Networking
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/node.k8s.io/runtimeclasses.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/node.k8s.io/runtimeclasses.png
+      type: image/png
+    layoutName: node.k8s.io-v1-runtimeclasses
+    name: RuntimeClass
+    resource:
+      group: node.k8s.io
+      kind: RuntimeClass
+      name: runtimeclasses
+      scope: Cluster
+      version: v1
+  name: Node
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/policy/podsecuritypolicies.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/policy/podsecuritypolicies.png
+      type: image/png
+    layoutName: policy-v1beta1-podsecuritypolicies
+    name: PodSecurityPolicy
+    resource:
+      group: policy
+      kind: PodSecurityPolicy
+      name: podsecuritypolicies
+      scope: Cluster
+      version: v1beta1
+  name: Policy
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: policy-v1-poddisruptionbudgets
+    name: PodDisruptionBudget
+    resource:
+      group: policy
+      kind: PodDisruptionBudget
+      name: poddisruptionbudgets
+      scope: Namespaced
+      version: v1
+  name: Policy
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/scheduling.k8s.io/priorityclasses.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/scheduling.k8s.io/priorityclasses.png
+      type: image/png
+    layoutName: scheduling.k8s.io-v1-priorityclasses
+    name: PriorityClass
+    resource:
+      group: scheduling.k8s.io
+      kind: PriorityClass
+      name: priorityclasses
+      scope: Cluster
+      version: v1
+  name: Scheduling
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/storage.k8s.io/csidrivers.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/storage.k8s.io/csidrivers.png
+      type: image/png
+    layoutName: storage.k8s.io-v1-csidrivers
+    name: CSIDriver
+    resource:
+      group: storage.k8s.io
+      kind: CSIDriver
+      name: csidrivers
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/storage.k8s.io/csinodes.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/storage.k8s.io/csinodes.png
+      type: image/png
+    layoutName: storage.k8s.io-v1-csinodes
+    name: CSINode
+    resource:
+      group: storage.k8s.io
+      kind: CSINode
+      name: csinodes
+      scope: Cluster
+      version: v1
+  - icons:
+    - src: https://cdn.appscode.com/k8s/icons/storage.k8s.io/storageclasses.svg
+      type: image/svg+xml
+    - src: https://cdn.appscode.com/k8s/icons/storage.k8s.io/storageclasses.png
+      type: image/png
+    layoutName: storage.k8s.io-v1-storageclasses
+    name: StorageClass
+    resource:
+      group: storage.k8s.io
+      kind: StorageClass
+      name: storageclasses
+      scope: Cluster
+      version: v1
+  - layoutName: storage.k8s.io-v1-volumeattachments
+    name: VolumeAttachment
+    resource:
+      group: storage.k8s.io
+      kind: VolumeAttachment
+      name: volumeattachments
+      scope: Cluster
+      version: v1
+  name: Storage
+- icons:
+  - src: https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg
+    type: image/svg+xml
+  items:
+  - layoutName: storage.k8s.io-v1beta1-csistoragecapacities
+    name: CSIStorageCapacity
+    resource:
+      group: storage.k8s.io
+      kind: CSIStorageCapacity
+      name: csistoragecapacities
+      scope: Namespaced
+      version: v1beta1
+  name: Storage
+
