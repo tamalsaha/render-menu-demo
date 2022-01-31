@@ -478,8 +478,10 @@ func (r *Registry) createResourcePanel(namespace resourceclasses.UINamespace, ke
 		}
 
 		section := &v1alpha1.MenuSection{
-			Name:  rc.Name,
-			Icons: rc.Spec.ResourceClassInfo.Icons,
+			MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+				Name:  rc.Name,
+				Icons: rc.Spec.ResourceClassInfo.Icons,
+			},
 			// Weight:            rc.Spec.Weight,
 		}
 		for _, entry := range rc.Spec.Items {
@@ -537,15 +539,19 @@ func (r *Registry) createResourcePanel(namespace resourceclasses.UINamespace, ke
 				//	w = rc.Spec.Weight
 				//}
 				section = &v1alpha1.MenuSection{
-					Name:  rc.Name,
-					Icons: rc.Spec.ResourceClassInfo.Icons,
+					MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+						Name:  rc.Name,
+						Icons: rc.Spec.ResourceClassInfo.Icons,
+					},
 					// Weight:            w,
 				}
 			} else {
 				// unknown api group, so use CRD icon
 				name := resourceclasses.ResourceClassName(rd.Spec.Resource.Group)
 				section = &v1alpha1.MenuSection{
-					Name: name,
+					MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+						Name: name,
+					},
 					//ResourceClassInfo: v1alpha1.ResourceClassInfo{
 					//	APIGroup: rd.Spec.Resource.Group,
 					//},

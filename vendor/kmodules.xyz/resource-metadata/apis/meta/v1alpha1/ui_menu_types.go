@@ -31,16 +31,14 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type Menu struct {
-	metav1.TypeMeta `json:",inline"`
-	Sections        []*MenuSection `json:"sections,omitempty"`
+	metav1.TypeMeta  `json:",inline"`
+	*MenuSectionInfo `json:",inline,omitempty"`
+	Sections         []*MenuSection `json:"sections,omitempty"`
 }
 
 type MenuSection struct {
-	Name string `json:"name,omitempty"`
-	// Icons is an optional list of icons for an application. Icon information includes the source, size,
-	// and mime type.
-	Icons []ImageSpec `json:"icons,omitempty"`
-	Items []MenuItem  `json:"items"`
+	*MenuSectionInfo `json:",inline,omitempty"`
+	Items            []MenuItem `json:"items"`
 }
 
 type MenuItem struct {

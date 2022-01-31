@@ -66,41 +66,6 @@ spec:
                 type: array
               layoutName:
                 type: string
-              links:
-                description: Links are a list of descriptive URLs intended to be used
-                  to surface additional documentation, dashboards, etc.
-                items:
-                  description: Link contains information about an URL to surface documentation,
-                    dashboards, etc.
-                  properties:
-                    description:
-                      description: Description is human readable content explaining
-                        the purpose of the link.
-                      type: string
-                    url:
-                      description: Url typically points at a website address.
-                      type: string
-                  type: object
-                type: array
-              maintainers:
-                description: Maintainers is an optional list of maintainers of the
-                  application. The maintainers in this list maintain the the source
-                  code, images, and package for the application.
-                items:
-                  description: ContactData contains information about an individual
-                    or organization.
-                  properties:
-                    email:
-                      description: Email is the email address.
-                      type: string
-                    name:
-                      description: Name is the descriptive name.
-                      type: string
-                    url:
-                      description: Url could typically be a website address.
-                      type: string
-                  type: object
-                type: array
               name:
                 type: string
               path:
@@ -188,41 +153,6 @@ spec:
                       type: array
                     layoutName:
                       type: string
-                    links:
-                      description: Links are a list of descriptive URLs intended to
-                        be used to surface additional documentation, dashboards, etc.
-                      items:
-                        description: Link contains information about an URL to surface
-                          documentation, dashboards, etc.
-                        properties:
-                          description:
-                            description: Description is human readable content explaining
-                              the purpose of the link.
-                            type: string
-                          url:
-                            description: Url typically points at a website address.
-                            type: string
-                        type: object
-                      type: array
-                    maintainers:
-                      description: Maintainers is an optional list of maintainers
-                        of the application. The maintainers in this list maintain
-                        the the source code, images, and package for the application.
-                      items:
-                        description: ContactData contains information about an individual
-                          or organization.
-                        properties:
-                          email:
-                            description: Email is the email address.
-                            type: string
-                          name:
-                            description: Name is the descriptive name.
-                            type: string
-                          url:
-                            description: Url could typically be a website address.
-                            type: string
-                        type: object
-                      type: array
                     name:
                       type: string
                     path:

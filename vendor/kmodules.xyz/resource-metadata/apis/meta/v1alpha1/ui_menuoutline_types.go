@@ -44,16 +44,16 @@ type MenuOutline struct {
 }
 
 type MenuOutlineSpec struct {
-	*MenuSectionOverview `json:",inline,omitempty"`
-	Sections             []MenuSectionOutline `json:"sections,omitempty"`
+	*MenuSectionInfo `json:",inline,omitempty"`
+	Sections         []MenuSectionOutline `json:"sections,omitempty"`
 }
 
 type MenuSectionOutline struct {
-	*MenuSectionOverview `json:",inline,omitempty"`
-	Items                []MenuEntry `json:"items"`
+	*MenuSectionInfo `json:",inline,omitempty"`
+	Items            []MenuEntry `json:"items"`
 }
 
-type MenuSectionOverview struct {
+type MenuSectionInfo struct {
 	Name string `json:"name,omitempty"`
 
 	// +optional
@@ -67,13 +67,6 @@ type MenuSectionOverview struct {
 	// Icons is an optional list of icons for an application. Icon information includes the source, size,
 	// and mime type.
 	Icons []ImageSpec `json:"icons,omitempty"`
-
-	// Maintainers is an optional list of maintainers of the application. The maintainers in this list maintain the
-	// the source code, images, and package for the application.
-	Maintainers []ContactData `json:"maintainers,omitempty"`
-
-	// Links are a list of descriptive URLs intended to be used to surface additional documentation, dashboards, etc.
-	Links []Link `json:"links,omitempty"`
 }
 
 type MenuEntry struct {
