@@ -15,7 +15,14 @@ import (
 	"strings"
 )
 
-func CC(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
+func gensectionIcons() {
+	mp := map[string][]v1alpha1.ImageSpec{}
+	for _, m := range menuoutlines.List() {
+	
+	}
+}
+
+func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
 	reg := hub.NewRegistryOfKnownResources()
 
 	rsLists, err := client.ServerPreferredResources()
