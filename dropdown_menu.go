@@ -6,6 +6,7 @@ import (
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
@@ -19,8 +20,16 @@ import (
 	"sort"
 )
 
-func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
-	mo, err := menuoutlines.LoadByName(menuName)
+type DropDownMenuOptions struct {
+	MenuName string `json:"menuName"`
+	// +optional
+	SectionName *string `json:"sectionName,omitempty"`
+	// +optional
+	Type *schema.GroupKind `json:"type,omitempty"`
+}
+
+func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts DropDownMenuOptions) (*v1alpha1.Menu, error) {
+	mo, err := menuoutlines.LoadByName(opts.MenuName)
 	if err != nil {
 		return nil, err
 	}
@@ -40,12 +49,20 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 	}
 
 	for _, so := range mo.Sections {
+		if opts.SectionName != nil && so.Name != *opts.SectionName {
+			continue
+		}
+
 		sec := v1alpha1.MenuSection{
 			MenuSectionInfo: so.MenuSectionInfo,
 		}
 		if sec.AutoDiscoverAPIGroup != "" {
 			kinds := out[sec.AutoDiscoverAPIGroup]
-			for _, item := range kinds {
+			for kind, item := range kinds {
+				if opts.Type != nil &&
+					(opts.Type.Group != sec.AutoDiscoverAPIGroup || opts.Type.Kind != kind) {
+					continue
+				}
 				sec.Items = append(sec.Items, *item) // variants
 			}
 		} else {
@@ -71,6 +88,12 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 							mi.LayoutName = generated.LayoutName
 						}
 					}
+				}
+
+				if mi.Resource != nil &&
+					opts.Type != nil &&
+					(opts.Type.Group != mi.Resource.Group || opts.Type.Kind != mi.Resource.Kind) {
+					continue
 				}
 
 				ed, ok := getEditor(mi.Resource)
@@ -136,15 +159,16 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 							mi.Name = name
 							mi.Path = u2.String()
 							mi.Preset = &ref
-							items = append(items, mi)
+							// items = append(items, mi)
 						} else {
 							cp := mi
 							cp.Name = name
 							cp.Path = u2.String()
 							cp.Preset = &ref
-							items = append(items, cp)
+							mi.Items = append(mi.Items, cp)
 						}
 					}
+					items = append(items, mi)
 				}
 			}
 			sec.Items = items
