@@ -9,13 +9,13 @@ import (
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
 )
 
-func RenderDropDownMenu(client discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
+func RenderDropDownMenu(disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
 	mo, err := menuoutlines.LoadByName(menuName)
 	if err != nil {
 		return nil, err
 	}
 
-	out, err := GenerateMenuItems(client)
+	out, err := GenerateMenuItems(disco)
 	if err != nil {
 		return nil, err
 	}

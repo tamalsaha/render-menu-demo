@@ -16,7 +16,7 @@ var defaultIcons = []v1alpha1.ImageSpec{
 	},
 }
 
-func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
+func GenerateCompleteMenu(disco discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
 	sectionIcons := map[string][]v1alpha1.ImageSpec{}
 	for _, m := range menuoutlines.List() {
 		for _, sec := range m.Sections {
@@ -26,7 +26,7 @@ func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.
 		}
 	}
 
-	out, err := GenerateMenuItems(client)
+	out, err := GenerateMenuItems(disco)
 	if err != nil {
 		return nil, err
 	}

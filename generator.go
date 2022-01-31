@@ -13,10 +13,10 @@ import (
 	"strings"
 )
 
-func GenerateMenuItems(client discovery.ServerResourcesInterface) (map[string]map[string]*v1alpha1.MenuItem, error) {
+func GenerateMenuItems(disco discovery.ServerResourcesInterface) (map[string]map[string]*v1alpha1.MenuItem, error) {
 	reg := hub.NewRegistryOfKnownResources()
 
-	rsLists, err := client.ServerPreferredResources()
+	rsLists, err := disco.ServerPreferredResources()
 	if err != nil && !discovery.IsGroupDiscoveryFailedError(err) {
 		return nil, err
 	}

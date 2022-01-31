@@ -8,13 +8,13 @@ import (
 	"sort"
 )
 
-func RenderGalleryMenu(client discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
+func RenderGalleryMenu(disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
 	mo, err := menuoutlines.LoadByName(menuName)
 	if err != nil {
 		return nil, err
 	}
 
-	out, err := GenerateMenuItems(client)
+	out, err := GenerateMenuItems(disco)
 	if err != nil {
 		return nil, err
 	}
