@@ -55,10 +55,13 @@ func RenderAccordionMenu(client discovery.ServerResourcesInterface, menuName str
 				}
 
 				if item.Type != nil {
-					if genItem, ok := getMenuItem(out, *item.Type); ok {
-						mi.Resource = genItem.Resource
+					if generated, ok := getMenuItem(out, *item.Type); ok {
+						mi.Resource = generated.Resource
 						mi.Missing = false
-						mi.Installer = genItem.Installer
+						mi.Installer = generated.Installer
+						if mi.LayoutName == "" {
+							mi.LayoutName = generated.LayoutName
+						}
 					}
 				}
 				items = append(items, mi)
