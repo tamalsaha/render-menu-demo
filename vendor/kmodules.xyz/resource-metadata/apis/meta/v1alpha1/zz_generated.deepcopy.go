@@ -239,6 +239,13 @@ func (in *MenuItem) DeepCopyInto(out *MenuItem) {
 		*out = new(corev1.TypedLocalObjectReference)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]MenuItem, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	return
 }
 

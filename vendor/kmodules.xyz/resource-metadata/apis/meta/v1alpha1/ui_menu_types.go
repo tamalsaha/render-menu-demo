@@ -59,4 +59,6 @@ type MenuItem struct {
 	Installer *DeploymentParameters `json:"installer,omitempty"`
 	// +optional
 	Preset *core.TypedLocalObjectReference `json:"preset,omitempty"`
+	// +optional
+	Items []MenuItem `json:"items,omitempty"`
 }
