@@ -1,11 +1,18 @@
 package main
 
 import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/discovery"
+	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
+	"kmodules.xyz/resource-metadata/hub/resourceeditors"
+	"kmodules.xyz/resource-metadata/hub/resourceoutlines"
+	"sort"
+	"strings"
 )
 
 func CC(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
@@ -16,7 +23,7 @@ func CC(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
 		return nil, err
 	}
 
-	mp := map[string]*v1alpha1.MenuSection{}
+	sections := make([]*v1alpha1.MenuSection, 0, len(rsLists))
 	for _, rsList := range rsLists {
 		gv, err := schema.ParseGroupVersion(rsList.GroupVersion)
 		if err != nil {
@@ -25,28 +32,76 @@ func CC(client discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
 
 		sec := v1alpha1.MenuSection{
 			Name: menuoutlines.MenuSectionName(gv.Group),
-			ResourceClassInfo: v1alpha1.ResourceClassInfo{
-				APIGroup:    gv.Group,
-				Icons:       nil,
-				Maintainers: nil,
-				Links:       nil,
+			Icons: []v1alpha1.ImageSpec{
+				{
+					Source: crdIconSVG,
+					Type:   "image/svg+xml",
+				},
 			},
-			Items: nil,
 		}
 
 		for _, rs := range rsList.APIResources {
-			gvr := gv.WithResource(rs.Name)
-			rd, err := reg.LoadByGVR(gvr)
-			if err != nil {
-				if hub.IsUnregisteredErr(err) {
-
-				} else {
-					return nil, err
-				}
+			// skip sub resource
+			if strings.ContainsRune(rs.Name, '/') {
+				continue
 			}
+
+			// if resource can't be listed or read (get) or only view type skip it
+			verbs := sets.NewString(rs.Verbs...)
+			if !verbs.HasAll("list", "get", "watch", "create") {
+				continue
+			}
+
+			scope := kmapi.ClusterScoped
+			if rs.Namespaced {
+				scope = kmapi.NamespaceScoped
+			}
+			rid := kmapi.ResourceID{
+				Group:   gv.Group,
+				Version: gv.Version,
+				Name:    rs.Name,
+				Kind:    rs.Kind,
+				Scope:   scope,
+			}
+			gvr := rid.GroupVersionResource()
+
+			me := v1alpha1.MenuItem{
+				Name:       rid.Kind,
+				Path:       "",
+				Resource:   &rid,
+				Missing:    false,
+				Required:   false,
+				LayoutName: resourceoutlines.DefaultLayoutName(gvr),
+				// Icons:    rd.Spec.Icons,
+				// Installer:  rd.Spec.Installer,
+			}
+			if rd, err := reg.LoadByGVR(gvr); err == nil {
+				me.Icons = rd.Spec.Icons
+			}
+			if rd, ok := resourceeditors.LoadForGVR(gvr); ok {
+				me.Installer = rd.Spec.Installer
+			}
+
+			sec.Items = append(sec.Items, me) // variants
+		}
+		sort.Slice(sec.Items, func(i, j int) bool {
+			return sec.Items[i].Name < sec.Items[j].Name
+		})
+
+		if len(sec.Items) > 0 {
+			sections = append(sections, &sec)
 		}
 	}
 
-	// menuoutlines.MenuSectionName()
+	sort.Slice(sections, func(i, j int) bool {
+		return sections[i].Name < sections[j].Name
+	})
 
+	return &v1alpha1.Menu{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: v1alpha1.SchemeGroupVersion.String(),
+			Kind:       v1alpha1.ResourceKindMenuOutline,
+		},
+		Sections: sections,
+	}, nil
 }

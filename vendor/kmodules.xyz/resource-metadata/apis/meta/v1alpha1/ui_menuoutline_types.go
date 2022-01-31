@@ -23,7 +23,7 @@ import (
 const (
 	ResourceKindMenuOutline = "MenuOutline"
 	ResourceMenuOutline     = "menuoutline"
-	ResourceMenuOutlinees   = "menuoutlines"
+	ResourceMenuOutlines    = "menuoutlines"
 )
 
 // +genclient
