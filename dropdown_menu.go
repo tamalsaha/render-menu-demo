@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
+	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
@@ -19,7 +20,7 @@ import (
 	"sort"
 )
 
-func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts v1alpha1.RenderMenuRequest) (*v1alpha1.Menu, error) {
+func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts *v1alpha1.RenderMenuRequest) (*v1alpha1.Menu, error) {
 	mo, err := menuoutlines.LoadByName(opts.Menu)
 	if err != nil {
 		return nil, err
@@ -120,27 +121,12 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 						qs.Set("preset-group", *ref.APIGroup)
 						qs.Set("preset-kind", ref.Kind)
 						qs.Set("preset-name", ref.Name)
-						u2 := gourl.URL{
+						u := gourl.URL{
 							Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
 							RawQuery: qs.Encode(),
 						}
 
-						name, err := func() (string, error) {
-							if ref.Kind == chartsapi.ResourceKindVendorChartPreset {
-								ps, ok := vpsMap[ref.Name]
-								if !ok {
-									return "", fmt.Errorf("%s %s not found in chart %+v", chartsapi.ResourceKindVendorChartPreset, ref.Name, chartRef)
-								}
-								return ps.Name, nil
-							}
-
-							var ps chartsapi.ClusterChartPreset
-							err = kc.Get(context.TODO(), client.ObjectKey{Name: ref.Name}, &ps)
-							if err != nil {
-								return "", errors.Wrapf(err, "%s %s not found", chartsapi.ResourceKindClusterChartPreset, ref.Name)
-							}
-							return ps.Name, nil
-						}()
+						name, err := GetPresetName(kc, chartRef, vpsMap, ref)
 						if err != nil {
 							return nil, err
 						}
@@ -148,13 +134,13 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 						if len(ed.Spec.Variants) == 1 {
 							// cp := mi
 							mi.Name = name
-							mi.Path = u2.String()
+							mi.Path = u.String()
 							mi.Preset = &ref
 							// items = append(items, mi)
 						} else {
 							cp := mi
 							cp.Name = name
-							cp.Path = u2.String()
+							cp.Path = u.String()
 							cp.Preset = &ref
 							mi.Items = append(mi.Items, cp)
 						}
@@ -174,4 +160,25 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 	}
 
 	return &menu, nil
+}
+
+func GetPresetName(
+	kc client.Client,
+	chartRef *v1alpha1.ChartRepoRef,
+	vpsMap map[string]*chartsapi.VendorChartPreset,
+	ref core.TypedLocalObjectReference) (string, error) {
+	if ref.Kind == chartsapi.ResourceKindVendorChartPreset {
+		ps, ok := vpsMap[ref.Name]
+		if !ok {
+			return "", fmt.Errorf("%s %s not found in chart %+v", chartsapi.ResourceKindVendorChartPreset, ref.Name, chartRef)
+		}
+		return ps.Name, nil
+	}
+
+	var ps chartsapi.ClusterChartPreset
+	err := kc.Get(context.TODO(), client.ObjectKey{Name: ref.Name}, &ps)
+	if err != nil {
+		return "", errors.Wrapf(err, "%s %s not found", chartsapi.ResourceKindClusterChartPreset, ref.Name)
+	}
+	return ps.Name, nil
 }

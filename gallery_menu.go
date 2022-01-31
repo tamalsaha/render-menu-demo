@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
@@ -107,27 +106,12 @@ func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterfac
 						qs.Set("preset-group", *ref.APIGroup)
 						qs.Set("preset-kind", ref.Kind)
 						qs.Set("preset-name", ref.Name)
-						u2 := gourl.URL{
+						u := gourl.URL{
 							Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
 							RawQuery: qs.Encode(),
 						}
 
-						name, err := func() (string, error) {
-							if ref.Kind == chartsapi.ResourceKindVendorChartPreset {
-								ps, ok := vpsMap[ref.Name]
-								if !ok {
-									return "", fmt.Errorf("%s %s not found in chart %+v", chartsapi.ResourceKindVendorChartPreset, ref.Name, chartRef)
-								}
-								return ps.Name, nil
-							}
-
-							var ps chartsapi.ClusterChartPreset
-							err = kc.Get(context.TODO(), client.ObjectKey{Name: ref.Name}, &ps)
-							if err != nil {
-								return "", errors.Wrapf(err, "%s %s not found", chartsapi.ResourceKindClusterChartPreset, ref.Name)
-							}
-							return ps.Name, nil
-						}()
+						name, err := GetPresetName(kc, chartRef, vpsMap, ref)
 						if err != nil {
 							return nil, err
 						}
@@ -135,13 +119,13 @@ func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterfac
 						if len(ed.Spec.Variants) == 1 {
 							// cp := mi
 							mi.Name = name
-							mi.Path = u2.String()
+							mi.Path = u.String()
 							mi.Preset = &ref
 							items = append(items, mi)
 						} else {
 							cp := mi
 							cp.Name = name
-							cp.Path = u2.String()
+							cp.Path = u.String()
 							cp.Preset = &ref
 							items = append(items, cp)
 						}
