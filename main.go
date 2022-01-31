@@ -57,6 +57,14 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
+/*
+const (
+	MenuAccordion MenuMode = "Accordion"
+	MenuDropDown  MenuMode = "DropDown"
+	MenuGallery   MenuMode = "Gallery"
+)
+*/
+
 var (
 	masterURL      = ""
 	kubeconfigPath = filepath.Join(homedir.HomeDir(), ".kube", "config")
