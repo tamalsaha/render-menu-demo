@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strings"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -10,7 +12,6 @@ import (
 	"kmodules.xyz/resource-metadata/hub"
 	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kmodules.xyz/resource-metadata/hub/resourceoutlines"
-	"strings"
 )
 
 func GenerateMenuItems(disco discovery.ServerResourcesInterface) (map[string]map[string]*v1alpha1.MenuItem, error) {

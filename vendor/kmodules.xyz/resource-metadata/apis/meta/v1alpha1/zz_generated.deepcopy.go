@@ -203,6 +203,13 @@ func (in *MenuEntry) DeepCopyInto(out *MenuEntry) {
 		*out = make([]ImageSpec, len(*in))
 		copy(*out, *in)
 	}
+	if in.Variants != nil {
+		in, out := &in.Variants, &out.Variants
+		*out = make([]corev1.TypedLocalObjectReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	return
 }
 
@@ -232,6 +239,11 @@ func (in *MenuItem) DeepCopyInto(out *MenuItem) {
 	if in.Installer != nil {
 		in, out := &in.Installer, &out.Installer
 		*out = new(DeploymentParameters)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.Preset != nil {
+		in, out := &in.Preset, &out.Preset
+		*out = new(corev1.TypedLocalObjectReference)
 		(*in).DeepCopyInto(*out)
 	}
 	return
