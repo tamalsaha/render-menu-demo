@@ -131,7 +131,7 @@ func main__() {
 		klog.Fatal(err)
 	}
 
-	cpsMap, err := LoadChartPresets(chrt)
+	cpsMap, err := LoadVendorPresets(chrt)
 	if err != nil {
 		klog.Fatal(err)
 	}
@@ -305,7 +305,7 @@ func mergeChartPresetValues(kc client.Client, cpsMap map[string]*chartsapi.Vendo
 }
 
 //func LoadClusterChartPresets(kc client.Client, chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
-//	cpsMap, err := LoadChartPresets(chrt)
+//	cpsMap, err := LoadVendorPresets(chrt)
 //	if err != nil {
 //		return nil, err
 //	}
@@ -320,7 +320,7 @@ func mergeChartPresetValues(kc client.Client, cpsMap map[string]*chartsapi.Vendo
 //	return cpsMap, nil
 //}
 
-func LoadChartPresets(chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
+func LoadVendorPresets(chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
 	cpsMap := map[string]*chartsapi.VendorChartPreset{}
 	for _, f := range chrt.Raw {
 		if !strings.HasPrefix(f.Name, "presets/") {
