@@ -47,7 +47,9 @@ func GenerateCompleteMenu(client discovery.ServerResourcesInterface) (*v1alpha1.
 		}
 
 		sec := v1alpha1.MenuSection{
-			Name: menuoutlines.MenuSectionName(gv.Group),
+			MenuSectionInfo: &v1alpha1.MenuSectionInfo{
+				Name: menuoutlines.MenuSectionName(gv.Group),
+			},
 		}
 		if icons, ok := sectionIcons[gv.Group]; ok {
 			sec.Icons = icons
