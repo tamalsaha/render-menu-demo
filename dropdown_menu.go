@@ -3,6 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	gourl "net/url"
+	"path"
+	"sort"
+
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
 	core "k8s.io/api/core/v1"
@@ -14,10 +18,7 @@ import (
 	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
 	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
-	gourl "net/url"
-	"path"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sort"
 )
 
 func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts *v1alpha1.RenderMenuRequest) (*v1alpha1.Menu, error) {

@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+	gourl "net/url"
+	"path"
+	"sort"
+
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -13,10 +17,7 @@ import (
 	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
 	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
-	gourl "net/url"
-	"path"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sort"
 )
 
 func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
