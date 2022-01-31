@@ -1,15 +1,22 @@
 package main
 
 import (
+	"fmt"
+	"gomodules.xyz/pointer"
+	"kmodules.xyz/resource-metadata/hub/resourceeditors"
+	gourl "net/url"
+	"path"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sort"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
+	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
 )
 
-func RenderGalleryMenu(disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
+func RenderGalleryMenu(client client.Client, disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
 	mo, err := menuoutlines.LoadByName(menuName)
 	if err != nil {
 		return nil, err
@@ -65,7 +72,49 @@ func RenderGalleryMenu(disco discovery.ServerResourcesInterface, menuName string
 						}
 					}
 				}
-				items = append(items, mi)
+
+				if len(item.Variants) == 0 {
+					items = append(items, mi)
+				} else if mi.Resource != nil {
+					gvr := mi.Resource.GroupVersionResource()
+					ed, ok := resourceeditors.LoadForGVR(gvr)
+					if !ok {
+						return nil, fmt.Errorf("ResourceEditor not defined for %+v", gvr)
+					}
+					ed.Spec.UI
+
+					for _, ref := range item.Variants {
+						if ref.APIGroup == nil {
+							ref.APIGroup = pointer.StringP(chartsapi.GroupVersion.Group)
+						}
+						if ref.Kind != chartsapi.ResourceKindVendorChartPreset || ref.Kind != chartsapi.ResourceKindClusterChartPreset {
+							return nil, fmt.Errorf("unknown preset kind %q used in menu item %s", ref.Kind, mi.Name)
+						}
+
+						qs := gourl.Values{}
+						qs.Set("preset-group", *ref.APIGroup)
+						qs.Set("preset-kind", ref.Kind)
+						qs.Set("preset-name", ref.Name)
+						u2 := gourl.URL{
+							Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
+							RawQuery: qs.Encode(),
+						}
+
+						if len(item.Variants) == 1 {
+							// cp := mi
+							mi.Name = ""
+							mi.Path = u2.String()
+							mi.Preset = &ref
+							items = append(items, mi)
+						} else {
+							cp := mi
+							cp.Name = ""
+							cp.Path = u2.String()
+							cp.Preset = &ref
+							items = append(items, cp)
+						}
+					}
+				}
 			}
 			sec.Items = items
 		}

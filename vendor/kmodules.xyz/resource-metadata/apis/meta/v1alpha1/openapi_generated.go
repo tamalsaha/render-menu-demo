@@ -14665,25 +14665,12 @@ func schema_resource_metadata_apis_meta_v1alpha1_MenuEntry(ref common.ReferenceC
 							},
 						},
 					},
-					"variants": {
-						SchemaProps: spec.SchemaProps{
-							Type: []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("k8s.io/api/core/v1.TypedLocalObjectReference"),
-									},
-								},
-							},
-						},
-					},
 				},
 				Required: []string{"name"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.TypedLocalObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind", "kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ImageSpec"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind", "kmodules.xyz/resource-metadata/apis/meta/v1alpha1.ImageSpec"},
 	}
 }
 

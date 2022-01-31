@@ -203,13 +203,6 @@ func (in *MenuEntry) DeepCopyInto(out *MenuEntry) {
 		*out = make([]ImageSpec, len(*in))
 		copy(*out, *in)
 	}
-	if in.Variants != nil {
-		in, out := &in.Variants, &out.Variants
-		*out = make([]corev1.TypedLocalObjectReference, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
 	return
 }
 

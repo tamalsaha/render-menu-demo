@@ -50,7 +50,7 @@ import (
 	"kubepack.dev/lib-helm/pkg/getter"
 	"kubepack.dev/lib-helm/pkg/repo"
 	"kubepack.dev/lib-helm/pkg/values"
-	"kubepack.dev/preset/apis/charts/v1alpha1"
+	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/apiutil"
 	"sigs.k8s.io/controller-runtime/pkg/log"
@@ -137,23 +137,23 @@ func main__() {
 	}
 	PrintGPS(cpsMap)
 
-	ps := v1alpha1.ClusterChartPreset{
+	ps := chartsapi.ClusterChartPreset{
 		TypeMeta: metav1.TypeMeta{
-			APIVersion: v1alpha1.GroupVersion.String(),
-			Kind:       v1alpha1.ResourceKindClusterChartPreset,
+			APIVersion: chartsapi.GroupVersion.String(),
+			Kind:       chartsapi.ResourceKindClusterChartPreset,
 		},
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "ui-hello",
 		},
-		Spec: v1alpha1.ClusterChartPresetSpec{
+		Spec: chartsapi.ClusterChartPresetSpec{
 			Selector: &metav1.LabelSelector{
 				MatchLabels:      map[string]string{},
 				MatchExpressions: nil,
 			},
 			UsePresets: []core.TypedLocalObjectReference{
 				{
-					APIGroup: pointer.StringP(v1alpha1.GroupVersion.Group),
-					Kind:     v1alpha1.ResourceKindChartPreset,
+					APIGroup: pointer.StringP(chartsapi.GroupVersion.Group),
+					Kind:     chartsapi.ResourceKindChartPreset,
 					Name:     "unified",
 				},
 			},
@@ -197,7 +197,7 @@ func main__() {
 func NewClient(cfg *rest.Config) (client.Client, error) {
 	scheme := runtime.NewScheme()
 	_ = clientgoscheme.AddToScheme(scheme)
-	_ = v1alpha1.AddToScheme(scheme)
+	_ = chartsapi.AddToScheme(scheme)
 
 	log.SetLogger(klogr.New())
 	cfg.QPS = 100
@@ -218,7 +218,7 @@ func NewClient(cfg *rest.Config) (client.Client, error) {
 	})
 }
 
-func LoadPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.VendorChartPreset, in *v1alpha1.ClusterChartPreset, ns string) (values.Options, error) {
+func LoadPresetValues(kc client.Client, cpsMap map[string]*chartsapi.VendorChartPreset, in *chartsapi.ClusterChartPreset, ns string) (values.Options, error) {
 	sel, err := metav1.LabelSelectorAsSelector(in.Spec.Selector)
 	if err != nil {
 		return values.Options{}, err
@@ -230,7 +230,7 @@ func LoadPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.VendorChartP
 		return values.Options{}, err
 	}
 
-	var ps v1alpha1.ChartPreset
+	var ps chartsapi.ChartPreset
 	err = kc.Get(context.TODO(), client.ObjectKey{Namespace: ns, Name: in.Name}, &ps)
 	if err == nil {
 		opts.ValueBytes = append(opts.ValueBytes, ps.Spec.Values.Raw)
@@ -240,7 +240,7 @@ func LoadPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.VendorChartP
 	return opts, nil
 }
 
-func LoadClusterChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.VendorChartPreset, in *v1alpha1.ClusterChartPreset) (values.Options, error) {
+func LoadClusterChartPresetValues(kc client.Client, cpsMap map[string]*chartsapi.VendorChartPreset, in *chartsapi.ClusterChartPreset) (values.Options, error) {
 	sel, err := metav1.LabelSelectorAsSelector(in.Spec.Selector)
 	if err != nil {
 		return values.Options{}, err
@@ -254,9 +254,9 @@ func LoadClusterChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.
 	return opts, nil
 }
 
-func mergeClusterChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.VendorChartPreset, sel labels.Selector, in *v1alpha1.ClusterChartPreset, opts *values.Options) error {
+func mergeClusterChartPresetValues(kc client.Client, cpsMap map[string]*chartsapi.VendorChartPreset, sel labels.Selector, in *chartsapi.ClusterChartPreset, opts *values.Options) error {
 	for _, ps := range in.Spec.UsePresets {
-		if ps.Kind == v1alpha1.ResourceKindChartPreset {
+		if ps.Kind == chartsapi.ResourceKindChartPreset {
 			obj, ok := cpsMap[ps.Name]
 			if !ok {
 				return fmt.Errorf("missing VendorChartPreset %s", ps.Name)
@@ -266,8 +266,8 @@ func mergeClusterChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1
 					return err
 				}
 			}
-		} else if ps.Kind == v1alpha1.ResourceKindClusterChartPreset {
-			var obj v1alpha1.ClusterChartPreset
+		} else if ps.Kind == chartsapi.ResourceKindClusterChartPreset {
+			var obj chartsapi.ClusterChartPreset
 			err := kc.Get(context.TODO(), client.ObjectKey{Namespace: in.Namespace, Name: ps.Name}, &obj)
 			if err != nil {
 				return err
@@ -285,7 +285,7 @@ func mergeClusterChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1
 	return nil
 }
 
-func mergeChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.VendorChartPreset, sel labels.Selector, in *v1alpha1.VendorChartPreset, opts *values.Options) error {
+func mergeChartPresetValues(kc client.Client, cpsMap map[string]*chartsapi.VendorChartPreset, sel labels.Selector, in *chartsapi.VendorChartPreset, opts *values.Options) error {
 	for _, ps := range in.Spec.UsePresets {
 		obj, ok := cpsMap[ps.Name]
 		if !ok {
@@ -304,12 +304,12 @@ func mergeChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.Vendor
 	return nil
 }
 
-//func LoadClusterChartPresets(kc client.Client, chrt *repo.ChartExtended) (map[string]*v1alpha1.VendorChartPreset, error) {
+//func LoadClusterChartPresets(kc client.Client, chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
 //	cpsMap, err := LoadChartPresets(chrt)
 //	if err != nil {
 //		return nil, err
 //	}
-//	var gpsList v1alpha1.ChartPresetList
+//	var gpsList chartsapi.ChartPresetList
 //	err = kc.List(context.TODO(), &gpsList)
 //	if client.IgnoreNotFound(err) != nil {
 //		return nil, err
@@ -320,18 +320,18 @@ func mergeChartPresetValues(kc client.Client, cpsMap map[string]*v1alpha1.Vendor
 //	return cpsMap, nil
 //}
 
-func LoadChartPresets(chrt *repo.ChartExtended) (map[string]*v1alpha1.VendorChartPreset, error) {
-	cpsMap := map[string]*v1alpha1.VendorChartPreset{}
+func LoadChartPresets(chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
+	cpsMap := map[string]*chartsapi.VendorChartPreset{}
 	for _, f := range chrt.Raw {
 		if !strings.HasPrefix(f.Name, "presets/") {
 			continue
 		}
 		if err := parser.ProcessResources(f.Data, func(ri parser.ResourceInfo) error {
-			if ri.Object.GroupVersionKind() != v1alpha1.GroupVersion.WithKind(v1alpha1.ResourceKindVendorChartPreset) {
+			if ri.Object.GroupVersionKind() != chartsapi.GroupVersion.WithKind(chartsapi.ResourceKindVendorChartPreset) {
 				return nil
 			}
 
-			var obj v1alpha1.VendorChartPreset
+			var obj chartsapi.VendorChartPreset
 			if err := runtime.DefaultUnstructuredConverter.FromUnstructured(ri.Object.UnstructuredContent(), &obj); err != nil {
 				return errors.Wrapf(err, "failed to convert from unstructured obj %q in file %s", ri.Object.GetName(), ri.Filename)
 			}
@@ -346,7 +346,7 @@ func LoadChartPresets(chrt *repo.ChartExtended) (map[string]*v1alpha1.VendorChar
 	return cpsMap, nil
 }
 
-func PrintGPS(cpsMap map[string]*v1alpha1.VendorChartPreset) {
+func PrintGPS(cpsMap map[string]*chartsapi.VendorChartPreset) {
 	names := make([]string, 0, len(cpsMap))
 	for k := range cpsMap {
 		names = append(names, k)
