@@ -5,15 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a54c560e-acc8-41a9-ae41-6ea2ec8d1d9b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/accordion_menu.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dropdown_menu.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gallery_menu.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accordion_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/accordion_menu.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dropdown_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/dropdown_menu.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/gallery_menu.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
