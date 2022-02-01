@@ -15,7 +15,6 @@ import (
 	"k8s.io/klog/v2"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
-	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
 	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -27,7 +26,7 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 		return nil, err
 	}
 
-	out, err := GenerateMenuItems(disco)
+	out, err := GenerateMenuItems(kc, disco)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +93,7 @@ func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterfa
 					items = append(items, mi)
 				} else if mi.Resource != nil {
 					gvr := mi.Resource.GroupVersionResource()
-					ed, ok := resourceeditors.LoadForGVR(gvr)
+					ed, ok := LoadResourceEditor(kc, gvr)
 					if !ok {
 						return nil, fmt.Errorf("ResourceEditor not defined for %+v", gvr)
 					}

@@ -41,6 +41,7 @@ import (
 	clientcmdutil "kmodules.xyz/client-go/tools/clientcmd"
 	"kmodules.xyz/client-go/tools/converter"
 	"kmodules.xyz/client-go/tools/parser"
+	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	packv1alpha1 "kubepack.dev/kubepack/apis/kubepack/v1alpha1"
 	"kubepack.dev/kubepack/pkg/lib"
 	appapi "kubepack.dev/lib-app/api/v1alpha1"
@@ -91,8 +92,12 @@ func main() {
 	}
 
 	client := kubernetes.NewForConfigOrDie(cfg)
+	kc, err := NewClient(cfg)
+	if err != nil {
+		klog.Fatal(err)
+	}
 
-	menu, err := GenerateCompleteMenu(client.Discovery())
+	menu, err := GenerateCompleteMenu(kc, client.Discovery())
 	if err != nil {
 		klog.Fatal(err)
 	}
@@ -197,6 +202,7 @@ func main__() {
 func NewClient(cfg *rest.Config) (client.Client, error) {
 	scheme := runtime.NewScheme()
 	_ = clientgoscheme.AddToScheme(scheme)
+	_ = rsapi.AddToScheme(scheme)
 	_ = chartsapi.AddToScheme(scheme)
 
 	log.SetLogger(klogr.New())

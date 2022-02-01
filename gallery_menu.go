@@ -26,7 +26,7 @@ func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterfac
 		return nil, err
 	}
 
-	out, err := GenerateMenuItems(disco)
+	out, err := GenerateMenuItems(kc, disco)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterfac
 					items = append(items, mi)
 				} else if mi.Resource != nil {
 					gvr := mi.Resource.GroupVersionResource()
-					ed, ok := resourceeditors.LoadForGVR(gvr)
+					ed, ok := LoadResourceEditor(kc, gvr)
 					if !ok {
 						return nil, fmt.Errorf("ResourceEditor not defined for %+v", gvr)
 					}

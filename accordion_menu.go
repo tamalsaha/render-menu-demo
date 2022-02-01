@@ -7,15 +7,16 @@ import (
 	"k8s.io/client-go/discovery"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func RenderAccordionMenu(disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
+func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
 	mo, err := menuoutlines.LoadByName(menuName)
 	if err != nil {
 		return nil, err
 	}
 
-	out, err := GenerateMenuItems(disco)
+	out, err := GenerateMenuItems(kc, disco)
 	if err != nil {
 		return nil, err
 	}

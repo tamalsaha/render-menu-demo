@@ -21,7 +21,7 @@ func RenderMenu(kc client.Client, disco discovery.ServerResourcesInterface, obj 
 
 	switch req.Mode {
 	case v1alpha1.MenuAccordion:
-		if menu, err := RenderAccordionMenu(disco, req.Menu); err != nil {
+		if menu, err := RenderAccordionMenu(kc, disco, req.Menu); err != nil {
 			return nil, err
 		} else {
 			in.Response = menu

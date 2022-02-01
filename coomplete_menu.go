@@ -1,7 +1,10 @@
 package main
 
 import (
+	"kmodules.xyz/resource-metadata/hub"
 	"sort"
+
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
@@ -11,12 +14,12 @@ import (
 
 var defaultIcons = []v1alpha1.ImageSpec{
 	{
-		Source: crdIconSVG,
+		Source: hub.CRDIconSVG,
 		Type:   "image/svg+xml",
 	},
 }
 
-func GenerateCompleteMenu(disco discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
+func GenerateCompleteMenu(kc client.Client, disco discovery.ServerResourcesInterface) (*v1alpha1.Menu, error) {
 	sectionIcons := map[string][]v1alpha1.ImageSpec{}
 	for _, m := range menuoutlines.List() {
 		for _, sec := range m.Sections {
@@ -26,7 +29,7 @@ func GenerateCompleteMenu(disco discovery.ServerResourcesInterface) (*v1alpha1.M
 		}
 	}
 
-	out, err := GenerateMenuItems(disco)
+	out, err := GenerateMenuItems(kc, disco)
 	if err != nil {
 		return nil, err
 	}

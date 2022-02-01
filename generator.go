@@ -3,6 +3,8 @@ package main
 import (
 	"strings"
 
+	"sigs.k8s.io/controller-runtime/pkg/client"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -10,11 +12,10 @@ import (
 	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub"
-	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kmodules.xyz/resource-metadata/hub/resourceoutlines"
 )
 
-func GenerateMenuItems(disco discovery.ServerResourcesInterface) (map[string]map[string]*v1alpha1.MenuItem, error) {
+func GenerateMenuItems(kc client.Client, disco discovery.ServerResourcesInterface) (map[string]map[string]*v1alpha1.MenuItem, error) {
 	reg := hub.NewRegistryOfKnownResources()
 
 	rsLists, err := disco.ServerPreferredResources()
@@ -68,7 +69,7 @@ func GenerateMenuItems(disco discovery.ServerResourcesInterface) (map[string]map
 			if rd, err := reg.LoadByGVR(gvr); err == nil {
 				me.Icons = rd.Spec.Icons
 			}
-			if rd, ok := resourceeditors.LoadForGVR(gvr); ok {
+			if rd, ok := LoadResourceEditor(kc, gvr); ok {
 				me.Installer = rd.Spec.Installer
 			}
 
