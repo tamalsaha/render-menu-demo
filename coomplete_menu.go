@@ -1,15 +1,14 @@
 package main
 
 import (
-	"kmodules.xyz/resource-metadata/hub"
 	"sort"
-
-	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
+	"kmodules.xyz/resource-metadata/hub"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 var defaultIcons = []v1alpha1.ImageSpec{
