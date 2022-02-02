@@ -17,7 +17,7 @@ func LoadResourceEditor(kc client.Client, gvr schema.GroupVersionResource) (*v1a
 	if err == nil {
 		return &ed, true
 	} else if client.IgnoreNotFound(err) != nil {
-		klog.ErrorS(err, fmt.Sprintf("failed to load resource editor for %+v", gvr))
+		klog.V(8).InfoS(fmt.Sprintf("failed to load resource editor for %+v", gvr))
 	}
 	return resourceeditors.LoadForGVR(gvr)
 }

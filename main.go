@@ -97,12 +97,49 @@ func main() {
 		klog.Fatal(err)
 	}
 
-	menu, err := GenerateCompleteMenu(kc, client.Discovery())
+	//menu, err := GenerateCompleteMenu(kc, client.Discovery())
+	//if err != nil {
+	//	klog.Fatal(err)
+	//}
+	//data, _ := yaml.Marshal(menu)
+	//fmt.Println(string(data))
+
+	//in := &rsapi.RenderMenu{
+	//	TypeMeta: metav1.TypeMeta{},
+	//	Request: &rsapi.RenderMenuRequest{
+	//		Menu:    "cluster",
+	//		Mode:    rsapi.MenuGallery,
+	//		Section: nil,
+	//		Type:    nil,
+	//	},
+	//	Response: nil,
+	//}
+	//in := &rsapi.RenderMenu{
+	//	TypeMeta: metav1.TypeMeta{},
+	//	Request: &rsapi.RenderMenuRequest{
+	//		Menu:    "cluster",
+	//		Mode:    rsapi.MenuAccordion,
+	//		Section: nil,
+	//		Type:    nil,
+	//	},
+	//	Response: nil,
+	//}
+	in := &rsapi.RenderMenu{
+		TypeMeta: metav1.TypeMeta{},
+		Request: &rsapi.RenderMenuRequest{
+			Menu:    "cluster",
+			Mode:    rsapi.MenuDropDown,
+			Section: pointer.StringP("Workloads"),
+			Type:    nil,
+		},
+		Response: nil,
+	}
+	out, err := RenderMenu(kc, client, in, nil, nil)
 	if err != nil {
 		klog.Fatal(err)
 	}
-	data, _ := yaml.Marshal(menu)
-	fmt.Println(string(data))
+	data2, _ := yaml.Marshal(out.(*rsapi.RenderMenu).Response)
+	fmt.Println(string(data2))
 }
 
 func main__() {
