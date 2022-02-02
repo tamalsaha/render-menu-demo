@@ -124,41 +124,30 @@ func main_menu() {
 	//data, _ := yaml.Marshal(menu)
 	//fmt.Println(string(data))
 
-	//in := &rsapi.RenderMenu{
-	//	TypeMeta: metav1.TypeMeta{},
-	//	Request: &rsapi.RenderMenuRequest{
-	//		Menu:    "cluster",
-	//		Mode:    rsapi.MenuGallery,
-	//		Section: nil,
-	//		Type:    nil,
-	//	},
-	//	Response: nil,
+	//in := &rsapi.RenderMenuRequest{
+	//	Menu:    "cluster",
+	//	Mode:    rsapi.MenuGallery,
+	//	Section: nil,
+	//	Type:    nil,
 	//}
-	//in := &rsapi.RenderMenu{
-	//	TypeMeta: metav1.TypeMeta{},
-	//	Request: &rsapi.RenderMenuRequest{
-	//		Menu:    "cluster",
-	//		Mode:    rsapi.MenuAccordion,
-	//		Section: nil,
-	//		Type:    nil,
-	//	},
-	//	Response: nil,
+	//in := &rsapi.RenderMenuRequest{
+	//	Menu:    "cluster",
+	//	Mode:    rsapi.MenuAccordion,
+	//	Section: nil,
+	//	Type:    nil,
 	//}
-	in := &rsapi.RenderMenu{
-		TypeMeta: metav1.TypeMeta{},
-		Request: &rsapi.RenderMenuRequest{
-			Menu:    "cluster",
-			Mode:    rsapi.MenuDropDown,
-			Section: pointer.StringP("Workloads"),
-			Type:    nil,
-		},
-		Response: nil,
+	in := &rsapi.RenderMenuRequest{
+		Menu:    "cluster",
+		Mode:    rsapi.MenuDropDown,
+		Section: pointer.StringP("Workloads"),
+		Type:    nil,
 	}
-	out, err := RenderMenu(kc, client, in, nil, nil)
+	driver := NewUserMenuDriver(kc, client, "default", "")
+	out, err := RenderMenu(driver, in)
 	if err != nil {
 		klog.Fatal(err)
 	}
-	data2, _ := yaml.Marshal(out.(*rsapi.RenderMenu).Response)
+	data2, _ := yaml.Marshal(out)
 	fmt.Println(string(data2))
 }
 
