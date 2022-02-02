@@ -77,7 +77,7 @@ var (
 	version = "0.1.0"
 )
 
-func main() {
+func main_hash() {
 	m := "meta.k8s.appscode.com.menuoutline.cluster.system:serviceaccount:kube-system:lke-admin"
 	fmt.Printf("%v\n", HashMessage(m))
 
@@ -95,7 +95,7 @@ func HashMessage(m string) interface{} {
 	return h.Sum64()
 }
 
-func main_menu() {
+func main() {
 	flag.StringVar(&masterURL, "master", masterURL, "The address of the Kubernetes API server (overrides any value in kubeconfig)")
 	flag.StringVar(&kubeconfigPath, "kubeconfig", kubeconfigPath, "Path to kubeconfig file with authorization information (the master location is set by the master flag).")
 	flag.StringVar(&url, "url", url, "Chart repo url")

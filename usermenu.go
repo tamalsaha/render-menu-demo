@@ -187,3 +187,16 @@ func (r *UserMenuDriver) Upsert(menu *rsapi.Menu) (*rsapi.Menu, error) {
 	})
 	return result.(*rsapi.Menu), err
 }
+
+func (r *UserMenuDriver) Available(menu string) (*rsapi.Menu, error) {
+	all, err := GenerateCompleteMenu(r.kc, r.disco)
+	if err != nil {
+		return nil, err
+	}
+	existing, err := r.Get(menu)
+	if err != nil {
+		return nil, err
+	}
+	all.Minus(existing)
+	return all, nil
+}
