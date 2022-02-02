@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"kmodules.xyz/client-go/meta"
 	"sort"
 	"strings"
+
+	"kmodules.xyz/client-go/meta"
 
 	"k8s.io/client-go/discovery"
 
