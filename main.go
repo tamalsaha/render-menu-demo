@@ -8,13 +8,11 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
-	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/google/uuid"
-	"github.com/pkg/errors"
 	"github.com/spf13/pflag"
 	flag "github.com/spf13/pflag"
 	"github.com/unrolled/render"
@@ -42,7 +40,6 @@ import (
 	meta_util "kmodules.xyz/client-go/meta"
 	clientcmdutil "kmodules.xyz/client-go/tools/clientcmd"
 	"kmodules.xyz/client-go/tools/converter"
-	"kmodules.xyz/client-go/tools/parser"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	packv1alpha1 "kubepack.dev/kubepack/apis/kubepack/v1alpha1"
 	"kubepack.dev/kubepack/pkg/lib"
@@ -375,32 +372,6 @@ func mergeChartPresetValues(kc client.Client, cpsMap map[string]*chartsapi.Vendo
 //	}
 //	return cpsMap, nil
 //}
-
-func LoadVendorPresets(chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
-	cpsMap := map[string]*chartsapi.VendorChartPreset{}
-	for _, f := range chrt.Raw {
-		if !strings.HasPrefix(f.Name, "presets/") {
-			continue
-		}
-		if err := parser.ProcessResources(f.Data, func(ri parser.ResourceInfo) error {
-			if ri.Object.GroupVersionKind() != chartsapi.GroupVersion.WithKind(chartsapi.ResourceKindVendorChartPreset) {
-				return nil
-			}
-
-			var obj chartsapi.VendorChartPreset
-			if err := runtime.DefaultUnstructuredConverter.FromUnstructured(ri.Object.UnstructuredContent(), &obj); err != nil {
-				return errors.Wrapf(err, "failed to convert from unstructured obj %q in file %s", ri.Object.GetName(), ri.Filename)
-			}
-			cpsMap[obj.Name] = &obj
-
-			return nil
-		}); err != nil {
-			return nil, err
-		}
-
-	}
-	return cpsMap, nil
-}
 
 func PrintGPS(cpsMap map[string]*chartsapi.VendorChartPreset) {
 	names := make([]string, 0, len(cpsMap))

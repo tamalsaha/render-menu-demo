@@ -3,11 +3,11 @@ module github.com/tamalsaha/render-menu-demo
 go 1.17
 
 require (
-	github.com/go-chi/chi/v5 v5.0.3
+	github.com/go-chi/chi/v5 v5.0.7
 	github.com/google/uuid v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/pflag v1.0.5
-	github.com/unrolled/render v1.4.0
+	github.com/unrolled/render v1.4.1
 	github.com/zeebo/xxh3 v1.0.1
 	go.wandrs.dev/binding v0.0.2
 	go.wandrs.dev/http v0.0.1
@@ -20,12 +20,12 @@ require (
 	k8s.io/client-go v0.21.1
 	k8s.io/klog/v2 v2.9.0
 	k8s.io/kubectl v0.21.1
-	kmodules.xyz/client-go v0.0.0-20220118144149-f5289f79ff44
-	kmodules.xyz/resource-metadata v0.8.2-0.20220202062920-2baf50069e8f
-	kubepack.dev/kubepack v0.3.9-0.20220116143022-30c1dc0a58ab
-	kubepack.dev/lib-app v0.0.6-0.20220125094005-5c2d355823b5
-	kubepack.dev/lib-helm v0.3.2-0.20220125093010-400f2676b169
-	kubepack.dev/preset v0.0.0-20220124043329-56dbfee25a9d
+	kmodules.xyz/client-go v0.0.0-20220131065336-bb3e98486e83
+	kmodules.xyz/resource-metadata v0.8.2-0.20220202132534-f0c60906a41b
+	kubepack.dev/kubepack v0.3.9-0.20220201033352-575b50c5a43d
+	kubepack.dev/lib-app v0.0.6-0.20220202133430-06d5a54e87cf
+	kubepack.dev/lib-helm v0.3.2-0.20220202133039-f91fc7c04650
+	kubepack.dev/preset v0.0.0-20220202134203-5d5853a977cb
 	sigs.k8s.io/controller-runtime v0.9.0
 	sigs.k8s.io/yaml v1.2.0
 )
@@ -94,7 +94,6 @@ require (
 	github.com/gobuffalo/flect v0.2.3 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/btree v1.0.0 // indirect

@@ -1,169 +1,138 @@
 package main
 
-// "kmodules.xyz/resource-metadata/hub/resourceclasses"
+import (
+	"fmt"
+	"strings"
 
-// const (
-// 	crdIconSVG = "https://cdn.appscode.com/k8s/icons/apiextensions.k8s.io/customresourcedefinitions.svg"
-// )
+	"github.com/pkg/errors"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/sets"
+	"k8s.io/client-go/discovery"
+	kmapi "kmodules.xyz/client-go/api/v1"
+	"kmodules.xyz/client-go/tools/parser"
+	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
+	"kmodules.xyz/resource-metadata/hub"
+	"kmodules.xyz/resource-metadata/hub/resourceoutlines"
+	"kubepack.dev/lib-helm/pkg/repo"
+	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+)
 
-// func CompleteResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace) (*v1alpha1.Menu, error) {
-// 	return createResourcePanel(r, namespace, true)
-// }
+func RenderMenu(driver *UserMenuDriver, req *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
+	switch req.Mode {
+	case rsapi.MenuAccordion:
+		return driver.Get(req.Menu)
+	case rsapi.MenuGallery:
+		return GetGalleryMenu(driver, req.Menu)
+	case rsapi.MenuDropDown:
+		return GetDropDownMenu(driver, req)
+	default:
+		return nil, apierrors.NewBadRequest(fmt.Sprintf("unknown menu mode %s", req.Mode))
+	}
+}
 
-// func DefaultResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace) (*v1alpha1.Menu, error) {
-// 	return createResourcePanel(r, namespace, false)
-// }
+func GenerateMenuItems(kc client.Client, disco discovery.ServerResourcesInterface) (map[string]map[string]*rsapi.MenuItem, error) {
+	reg := hub.NewRegistryOfKnownResources()
 
-// func createResourcePanel(r *hub.Registry, namespace resourceclasses.UINamespace, keepOfficialTypes bool) (*v1alpha1.Menu, error) {
-// 	sections := make(map[string]*v1alpha1.MenuSection)
-// 	existingGRs := map[schema.GroupResource]bool{}
+	rsLists, err := disco.ServerPreferredResources()
+	if err != nil && !discovery.IsGroupDiscoveryFailedError(err) {
+		return nil, err
+	}
 
-// 	// first add the known required sections
-// 	for group, rc := range resourceclasses.KnownClasses[namespace] {
-// 		if !rc.IsRequired() && "Helm 3" != rc.Name {
-// 			continue
-// 		}
+	// [group][Kind] => MenuItem
+	out := map[string]map[string]*rsapi.MenuItem{}
+	for _, rsList := range rsLists {
+		gv, err := schema.ParseGroupVersion(rsList.GroupVersion)
+		if err != nil {
+			return nil, err
+		}
 
-// 		section := &v1alpha1.MenuSection{
-// 			MenuSectionInfo: v1alpha1.MenuSectionInfo{
-// 				Name:  rc.Name,
-// 				Icons: rc.Spec.ResourceClassInfo.Icons,
-// 			},
-// 			// Weight:            rc.Spec.Weight,
-// 		}
-// 		for _, entry := range rc.Spec.Items {
-// 			pe := v1alpha1.MenuItem{
-// 				Name:     entry.Name,
-// 				Path:     entry.Path,
-// 				Required: entry.Required,
-// 				Icons:    entry.Icons,
-// 				// Namespaced: rc.Name == "Helm 3",
-// 				LayoutName: entry.LayoutName,
-// 			}
-// 			if entry.Type != nil {
-// 				gvr, ok := r.FindGVR(entry.Type, keepOfficialTypes)
-// 				if !ok {
-// 					continue
-// 				}
-// 				pe.Resource = &kmapi.ResourceID{
-// 					Group:   gvr.Group,
-// 					Version: gvr.Version,
-// 					Name:    gvr.Resource,
-// 				}
-// 				existingGRs[gvr.GroupResource()] = true
-// 				if rd, err := r.LoadByGVR(gvr); err == nil {
-// 					pe.Resource = &rd.Spec.Resource
-// 					// pe.Namespaced = rd.Spec.Resource.Scope == kmapi.NamespaceScoped
-// 					pe.Icons = rd.Spec.Icons
-// 					pe.Missing = r.Missing(gvr)
-// 					// pe.Installer = rd.Spec.Installer
-// 					if pe.LayoutName == "" {
-// 						pe.LayoutName = resourceoutlines.DefaultLayoutName(rd.Spec.Resource.GroupVersionResource())
-// 					}
-// 				}
-// 			}
-// 			section.Items = append(section.Items, pe)
-// 		}
-// 		sections[group] = section
-// 	}
+		for _, rs := range rsList.APIResources {
+			// skip sub resource
+			if strings.ContainsRune(rs.Name, '/') {
+				continue
+			}
 
-// 	// now, auto discover sections from registry
-// 	r.Visit(func(_ string, rd *v1alpha1.ResourceDescriptor) {
-// 		if !keepOfficialTypes && v1alpha1.IsOfficialType(rd.Spec.Resource.Group) {
-// 			return // skip k8s.io api groups
-// 		}
+			// if resource can't be listed or read (get) or only view type skip it
+			verbs := sets.NewString(rs.Verbs...)
+			if !verbs.HasAll("list", "get", "watch", "create") {
+				continue
+			}
 
-// 		gvr := rd.Spec.Resource.GroupVersionResource()
-// 		if _, found := existingGRs[gvr.GroupResource()]; found {
-// 			return
-// 		}
+			scope := kmapi.ClusterScoped
+			if rs.Namespaced {
+				scope = kmapi.NamespaceScoped
+			}
+			rid := kmapi.ResourceID{
+				Group:   gv.Group,
+				Version: gv.Version,
+				Name:    rs.Name,
+				Kind:    rs.Kind,
+				Scope:   scope,
+			}
+			gvr := rid.GroupVersionResource()
 
-// 		section, found := sections[rd.Spec.Resource.Group]
-// 		if !found {
-// 			if rc, found := resourceclasses.KnownClasses[namespace][rd.Spec.Resource.Group]; found {
-// 				//w := math.MaxInt16
-// 				//if rc.Spec.Weight > 0 {
-// 				//	w = rc.Spec.Weight
-// 				//}
-// 				section = &v1alpha1.MenuSection{
-// 					MenuSectionInfo: v1alpha1.MenuSectionInfo{
-// 						Name:  rc.Name,
-// 						Icons: rc.Spec.ResourceClassInfo.Icons,
-// 					},
-// 					// Weight:            w,
-// 				}
-// 			} else {
-// 				// unknown api group, so use CRD icon
-// 				name := resourceclasses.ResourceClassName(rd.Spec.Resource.Group)
-// 				section = &v1alpha1.MenuSection{
-// 					MenuSectionInfo: v1alpha1.MenuSectionInfo{
-// 						Name: name,
-// 					},
-// 					//ResourceClassInfo: v1alpha1.ResourceClassInfo{
-// 					//	APIGroup: rd.Spec.Resource.Group,
-// 					//},
-// 					// Weight: math.MaxInt16,
-// 				}
-// 			}
-// 			sections[rd.Spec.Resource.Group] = section
-// 		}
+			me := rsapi.MenuItem{
+				Name:       rid.Kind,
+				Path:       "",
+				Resource:   &rid,
+				Missing:    false,
+				Required:   false,
+				LayoutName: resourceoutlines.DefaultLayoutName(gvr),
+				// Icons:    rd.Spec.Icons,
+				// Installer:  rd.Spec.Installer,
+			}
+			if rd, err := reg.LoadByGVR(gvr); err == nil {
+				me.Icons = rd.Spec.Icons
+			}
+			if rd, ok := LoadResourceEditor(kc, gvr); ok {
+				me.Installer = rd.Spec.Installer
+			}
 
-// 		section.Items = append(section.Items, v1alpha1.MenuItem{
-// 			Name:     rd.Spec.Resource.Kind,
-// 			Resource: &rd.Spec.Resource,
-// 			Icons:    rd.Spec.Icons,
-// 			// Namespaced: rd.Spec.Resource.Scope == kmapi.NamespaceScoped,
-// 			Missing: r.Missing(gvr),
-// 			// Installer:  rd.Spec.Installer,
-// 			LayoutName: resourceoutlines.DefaultLayoutName(rd.Spec.Resource.GroupVersionResource()),
-// 		})
-// 		existingGRs[gvr.GroupResource()] = true
-// 	})
+			if _, ok := out[gv.Group]; !ok {
+				out[gv.Group] = map[string]*rsapi.MenuItem{}
+			}
+			out[gv.Group][rs.Kind] = &me // variants
+		}
+	}
 
-// 	return toPanel(sections)
-// }
+	return out, nil
+}
 
-// func toPanel(in map[string]*v1alpha1.MenuSection) (*v1alpha1.Menu, error) {
-// 	sections := make([]*v1alpha1.MenuSection, 0, len(in))
+func getMenuItem(out map[string]map[string]*rsapi.MenuItem, gk metav1.GroupKind) (*rsapi.MenuItem, bool) {
+	m, ok := out[gk.Group]
+	if !ok {
+		return nil, false
+	}
+	item, ok := m[gk.Kind]
+	return item, ok
+}
 
-// 	for key, section := range in {
-// 		if !strings.HasSuffix(key, ".local") {
-// 			sort.Slice(section.Items, func(i, j int) bool {
-// 				return section.Items[i].Name < section.Items[j].Name
-// 			})
-// 		}
+func LoadVendorPresets(chrt *repo.ChartExtended) (map[string]*chartsapi.VendorChartPreset, error) {
+	cpsMap := map[string]*chartsapi.VendorChartPreset{}
+	for _, f := range chrt.Raw {
+		if !strings.HasPrefix(f.Name, "presets/") {
+			continue
+		}
+		if err := parser.ProcessResources(f.Data, func(ri parser.ResourceInfo) error {
+			if ri.Object.GroupVersionKind() != chartsapi.GroupVersion.WithKind(chartsapi.ResourceKindVendorChartPreset) {
+				return nil
+			}
 
-// 		// Set icon for sections missing icon
-// 		if len(section.Icons) == 0 {
-// 			// TODO: Use a different icon for section
-// 			section.Icons = []v1alpha1.ImageSpec{
-// 				{
-// 					Source: crdIconSVG,
-// 					Type:   "image/svg+xml",
-// 				},
-// 			}
-// 		}
-// 		// set icons for entries missing icon
-// 		for i := range section.Items {
-// 			if len(section.Items[i].Icons) == 0 {
-// 				section.Items[i].Icons = []v1alpha1.ImageSpec{
-// 					{
-// 						Source: crdIconSVG,
-// 						Type:   "image/svg+xml",
-// 					},
-// 				}
-// 			}
-// 		}
+			var obj chartsapi.VendorChartPreset
+			if err := runtime.DefaultUnstructuredConverter.FromUnstructured(ri.Object.UnstructuredContent(), &obj); err != nil {
+				return errors.Wrapf(err, "failed to convert from unstructured obj %q in file %s", ri.Object.GetName(), ri.Filename)
+			}
+			cpsMap[obj.Name] = &obj
 
-// 		sections = append(sections, section)
-// 	}
+			return nil
+		}); err != nil {
+			return nil, err
+		}
 
-// 	//sort.Slice(sections, func(i, j int) bool {
-// 	//	if sections[i].Weight == sections[j].Weight {
-// 	//		return sections[i].Name < sections[j].Name
-// 	//	}
-// 	//	return sections[i].Weight < sections[j].Weight
-// 	//})
-
-// 	return &v1alpha1.Menu{Sections: sections}, nil
-// }
+	}
+	return cpsMap, nil
+}
