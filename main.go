@@ -117,6 +117,10 @@ func main() {
 		klog.Fatal(err)
 	}
 
+	out, err := RenderAccordionMenu(kc, client, "cluster")
+	data2, _ := yaml.Marshal(out)
+	fmt.Println(string(data2))
+
 	//menu, err := GenerateCompleteMenu(kc, client.Discovery())
 	//if err != nil {
 	//	klog.Fatal(err)
@@ -136,19 +140,19 @@ func main() {
 	//	Section: nil,
 	//	Type:    nil,
 	//}
-	in := &rsapi.RenderMenuRequest{
-		Menu:    "cluster",
-		Mode:    rsapi.MenuDropDown,
-		Section: pointer.StringP("Workloads"),
-		Type:    nil,
-	}
-	driver := NewUserMenuDriver(kc, client, "default", "")
-	out, err := RenderMenu(driver, in)
-	if err != nil {
-		klog.Fatal(err)
-	}
-	data2, _ := yaml.Marshal(out)
-	fmt.Println(string(data2))
+	//in := &rsapi.RenderMenuRequest{
+	//	Menu:    "cluster",
+	//	Mode:    rsapi.MenuDropDown,
+	//	Section: pointer.StringP("Workloads"),
+	//	Type:    nil,
+	//}
+	//driver := NewUserMenuDriver(kc, client, "default", "")
+	//out, err := RenderMenu(driver, in)
+	//if err != nil {
+	//	klog.Fatal(err)
+	//}
+	//data2, _ := yaml.Marshal(out)
+	//fmt.Println(string(data2))
 }
 
 func main__() {
