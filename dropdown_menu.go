@@ -132,6 +132,12 @@ func RenderDropDownMenu(kc client.Client, in *rsapi.Menu, opts *rsapi.RenderMenu
 		}
 	}
 
+	if len(out.Sections) == 1 && opts.Type != nil {
+		out.Home = &out.Sections[0].MenuSectionInfo
+		out.Items = out.Sections[0].Items
+		out.Sections = nil
+	}
+
 	return &out, nil
 }
 
