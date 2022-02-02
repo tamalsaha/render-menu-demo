@@ -11,7 +11,6 @@ import (
 	"gomodules.xyz/pointer"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kubepack.dev/kubepack/pkg/lib"
@@ -19,11 +18,15 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func RenderDropDownMenu(kc client.Client, disco discovery.ServerResourcesInterface, opts *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
-	return nil, nil
+func GetDropDownMenu(driver *UserMenuDriver, opts *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
+	menu, err := driver.Get(opts.Menu)
+	if err != nil {
+		return nil, err
+	}
+	return RenderDropDownMenu(driver.GetClient(), menu, opts)
 }
 
-func RenderDropDownMenu22(kc client.Client, disco discovery.ServerResourcesInterface, in *rsapi.Menu, opts *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
+func RenderDropDownMenu(kc client.Client, in *rsapi.Menu, opts *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
 	out := rsapi.Menu{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: rsapi.SchemeGroupVersion.String(),

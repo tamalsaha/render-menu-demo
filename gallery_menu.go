@@ -9,7 +9,6 @@ import (
 	"github.com/pkg/errors"
 	"gomodules.xyz/pointer"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kubepack.dev/kubepack/pkg/lib"
@@ -17,11 +16,15 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*rsapi.Menu, error) {
-	return nil, nil
+func GetGalleryMenu(driver *UserMenuDriver, menuName string) (*rsapi.Menu, error) {
+	menu, err := driver.Get(menuName)
+	if err != nil {
+		return nil, err
+	}
+	return RenderGalleryMenu(driver.GetClient(), menu)
 }
 
-func RenderGalleryMenu22(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
+func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 	out := rsapi.Menu{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: rsapi.SchemeGroupVersion.String(),

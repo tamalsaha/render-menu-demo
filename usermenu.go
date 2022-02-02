@@ -79,6 +79,14 @@ func extractMenu(cm *core.ConfigMap) (*rsapi.Menu, error) {
 	return &obj, nil
 }
 
+func (r *UserMenuDriver) GetClient() client.Client {
+	return r.kc
+}
+
+func (r *UserMenuDriver) GetDiscoveryClient() discovery.ServerResourcesInterface {
+	return r.disco
+}
+
 func (r *UserMenuDriver) Get(menu string) (*rsapi.Menu, error) {
 	cmName := configmapName(r.user, menu)
 	var cm core.ConfigMap
