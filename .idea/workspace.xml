@@ -6,17 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="a54c560e-acc8-41a9-ae41-6ea2ec8d1d9b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coomplete_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/coomplete_menu.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dropdown_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/dropdown_menu.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/gallery_menu.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usermenu.go" beforeDir="false" afterPath="$PROJECT_DIR$/usermenu.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/apis/meta/v1alpha1/openapi_generated.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/apis/meta/v1alpha1/openapi_generated.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/apis/meta/v1alpha1/ui_menu_types.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/apis/meta/v1alpha1/ui_menu_types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/apis/meta/v1alpha1/zz_generated.deepcopy.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/apis/meta/v1alpha1/zz_generated.deepcopy.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/menuoutlines/byte.builders/console.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/menuoutlines/byte.builders/cluster.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/menuoutlines/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/menuoutlines/lib.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourcedescriptors/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourcedescriptors/lib.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceeditors/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceeditors/lib.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceoutlines/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceoutlines/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/crds/meta.k8s.appscode.com_menus.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/crds/meta.k8s.appscode.com_menus.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

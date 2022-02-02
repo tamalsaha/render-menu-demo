@@ -35,8 +35,12 @@ type Menu struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Home              *MenuSectionInfo `json:"home,omitempty"`
-	Sections          []*MenuSection   `json:"sections,omitempty"`
+	// +optional
+	Home *MenuSectionInfo `json:"home,omitempty"`
+	// +optional
+	Sections []*MenuSection `json:"sections,omitempty"`
+	// +optional
+	Items []MenuItem `json:"items"`
 }
 
 type MenuSection struct {

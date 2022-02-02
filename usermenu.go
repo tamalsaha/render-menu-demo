@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"kmodules.xyz/client-go/meta"
 	"sort"
 	"strings"
 
@@ -92,9 +93,9 @@ func (r *UserMenuDriver) Get(menu string) (*rsapi.Menu, error) {
 func (r *UserMenuDriver) List() (*rsapi.MenuList, error) {
 	var list core.ConfigMapList
 	err := r.kc.List(context.TODO(), &list, client.InNamespace(r.ns), client.MatchingLabels{
-		"k8s.io/group":     rsapi.SchemeGroupVersion.Group,
-		"k8s.io/kind":      rsapi.ResourceKindMenu,
-		"k8s.io/owner-uid": r.user,
+		"k8s.io/group": rsapi.SchemeGroupVersion.Group,
+		"k8s.io/kind":  rsapi.ResourceKindMenu,
+		"k8s.io/owner": r.user,
 	})
 	if apierrors.IsNotFound(err) {
 		names := menuoutlines.Names()
@@ -164,6 +165,11 @@ func (r *UserMenuDriver) Upsert(menu *rsapi.Menu) (*rsapi.Menu, error) {
 	cm.Name = configmapName(r.user, menu.Name)
 	result, _, err := cu.CreateOrPatch(context.TODO(), r.kc, &cm, func(obj client.Object, createOp bool) client.Object {
 		in := obj.(*core.ConfigMap)
+		in.Labels = meta.OverwriteKeys(in.Labels, map[string]string{
+			"k8s.io/group": rsapi.SchemeGroupVersion.Group,
+			"k8s.io/kind":  rsapi.ResourceKindMenu,
+			"k8s.io/owner": r.user,
+		})
 		in.Data = map[string]string{
 			keyUsername: r.user,
 			keyMenu:     string(data),

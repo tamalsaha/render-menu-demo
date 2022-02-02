@@ -169,6 +169,13 @@ func (in *Menu) DeepCopyInto(out *Menu) {
 			}
 		}
 	}
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]MenuItem, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	return
 }
 

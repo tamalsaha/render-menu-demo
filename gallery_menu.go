@@ -12,7 +12,7 @@ import (
 	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
 	kmapi "kmodules.xyz/client-go/api/v1"
-	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
+	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
 	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
@@ -20,39 +20,39 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
+func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*rsapi.Menu, error) {
 	mo, err := menuoutlines.LoadByName(menuName)
 	if err != nil {
 		return nil, err
 	}
 
-	out, err := GenerateMenuItems(kc, disco)
+	menuPerGK, err := GenerateMenuItems(kc, disco)
 	if err != nil {
 		return nil, err
 	}
 
-	menu := v1alpha1.Menu{
+	out := rsapi.Menu{
 		TypeMeta: metav1.TypeMeta{
-			APIVersion: v1alpha1.SchemeGroupVersion.String(),
-			Kind:       v1alpha1.ResourceKindMenu,
+			APIVersion: rsapi.SchemeGroupVersion.String(),
+			Kind:       rsapi.ResourceKindMenu,
 		},
 		Home:     mo.Home,
 		Sections: nil,
 	}
 
 	for _, so := range mo.Sections {
-		sec := v1alpha1.MenuSection{
+		sec := rsapi.MenuSection{
 			MenuSectionInfo: so.MenuSectionInfo,
 		}
 		if sec.AutoDiscoverAPIGroup != "" {
-			kinds := out[sec.AutoDiscoverAPIGroup]
+			kinds := menuPerGK[sec.AutoDiscoverAPIGroup]
 			for _, item := range kinds {
 				sec.Items = append(sec.Items, *item) // variants
 			}
 		} else {
-			items := make([]v1alpha1.MenuItem, 0)
+			items := make([]rsapi.MenuItem, 0)
 			for _, item := range so.Items {
-				mi := v1alpha1.MenuItem{
+				mi := rsapi.MenuItem{
 					Name:       item.Name,
 					Path:       item.Path,
 					Resource:   nil,
@@ -64,7 +64,7 @@ func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterfac
 				}
 
 				if item.Type != nil {
-					if generated, ok := getMenuItem(out, *item.Type); ok {
+					if generated, ok := getMenuItem(menuPerGK, *item.Type); ok {
 						mi.Resource = generated.Resource
 						mi.Missing = false
 						mi.Installer = generated.Installer
@@ -140,14 +140,14 @@ func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterfac
 		})
 
 		if len(sec.Items) > 0 {
-			menu.Sections = append(menu.Sections, &sec)
+			out.Sections = append(out.Sections, &sec)
 		}
 	}
 
-	return &menu, nil
+	return &out, nil
 }
 
-func getEditor(rid *kmapi.ResourceID) (*v1alpha1.ResourceEditor, bool) {
+func getEditor(rid *kmapi.ResourceID) (*rsapi.ResourceEditor, bool) {
 	if rid == nil {
 		return nil, false
 	}

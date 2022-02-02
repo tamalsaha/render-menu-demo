@@ -5,12 +5,12 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
-	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
+	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub/menuoutlines"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*v1alpha1.Menu, error) {
+func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*rsapi.Menu, error) {
 	mo, err := menuoutlines.LoadByName(menuName)
 	if err != nil {
 		return nil, err
@@ -21,17 +21,17 @@ func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterf
 		return nil, err
 	}
 
-	menu := v1alpha1.Menu{
+	menu := rsapi.Menu{
 		TypeMeta: metav1.TypeMeta{
-			APIVersion: v1alpha1.SchemeGroupVersion.String(),
-			Kind:       v1alpha1.ResourceKindMenu,
+			APIVersion: rsapi.SchemeGroupVersion.String(),
+			Kind:       rsapi.ResourceKindMenu,
 		},
 		Home:     mo.Home,
 		Sections: nil,
 	}
 
 	for _, so := range mo.Sections {
-		sec := v1alpha1.MenuSection{
+		sec := rsapi.MenuSection{
 			MenuSectionInfo: so.MenuSectionInfo,
 		}
 		if sec.AutoDiscoverAPIGroup != "" {
@@ -43,9 +43,9 @@ func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterf
 				return sec.Items[i].Name < sec.Items[j].Name
 			})
 		} else {
-			items := make([]v1alpha1.MenuItem, 0, len(so.Items))
+			items := make([]rsapi.MenuItem, 0, len(so.Items))
 			for _, item := range so.Items {
-				mi := v1alpha1.MenuItem{
+				mi := rsapi.MenuItem{
 					Name:       item.Name,
 					Path:       item.Path,
 					Resource:   nil,
