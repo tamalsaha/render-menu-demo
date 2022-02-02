@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/gob"
 	"fmt"
 	"net/http"
 	"path"
@@ -17,6 +18,7 @@ import (
 	"github.com/spf13/pflag"
 	flag "github.com/spf13/pflag"
 	"github.com/unrolled/render"
+	"github.com/zeebo/xxh3"
 	"go.wandrs.dev/binding"
 	httpw "go.wandrs.dev/http"
 	"gomodules.xyz/logs"
@@ -76,6 +78,24 @@ var (
 )
 
 func main() {
+	m := "meta.k8s.appscode.com.menuoutline.cluster.system:serviceaccount:kube-system:lke-admin"
+	fmt.Printf("%v\n", HashMessage(m))
+
+	h := xxh3.New()
+	_, _ = h.WriteString(m)
+	fmt.Println(h.Sum64())
+}
+
+func HashMessage(m string) interface{} {
+	h := xxh3.New()
+	if err := gob.NewEncoder(h).Encode(m); err != nil {
+		panic(fmt.Errorf("failed to gob encode %#v: %w", m, err))
+	}
+
+	return h.Sum64()
+}
+
+func main_menu() {
 	flag.StringVar(&masterURL, "master", masterURL, "The address of the Kubernetes API server (overrides any value in kubeconfig)")
 	flag.StringVar(&kubeconfigPath, "kubeconfig", kubeconfigPath, "Path to kubeconfig file with authorization information (the master location is set by the master flag).")
 	flag.StringVar(&url, "url", url, "Chart repo url")
