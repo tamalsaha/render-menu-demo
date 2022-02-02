@@ -11,148 +11,110 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/discovery"
 	"k8s.io/klog/v2"
-	kmapi "kmodules.xyz/client-go/api/v1"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
-	"kmodules.xyz/resource-metadata/hub/menuoutlines"
-	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
 	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 func RenderGalleryMenu(kc client.Client, disco discovery.ServerResourcesInterface, menuName string) (*rsapi.Menu, error) {
-	mo, err := menuoutlines.LoadByName(menuName)
-	if err != nil {
-		return nil, err
-	}
+	return nil, nil
+}
 
-	menuPerGK, err := GenerateMenuItems(kc, disco)
-	if err != nil {
-		return nil, err
-	}
-
+func RenderGalleryMenu22(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 	out := rsapi.Menu{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: rsapi.SchemeGroupVersion.String(),
 			Kind:       rsapi.ResourceKindMenu,
 		},
-		Home:     mo.Home,
-		Sections: nil,
+		Mode: rsapi.MenuGallery,
+		Home: in.Home,
 	}
 
-	for _, so := range mo.Sections {
-		sec := rsapi.MenuSection{
-			MenuSectionInfo: so.MenuSectionInfo,
-		}
-		if sec.AutoDiscoverAPIGroup != "" {
-			kinds := menuPerGK[sec.AutoDiscoverAPIGroup]
-			for _, item := range kinds {
-				sec.Items = append(sec.Items, *item) // variants
+	for _, so := range in.Sections {
+		items := make([]rsapi.MenuItem, 0)
+		for _, item := range so.Items {
+			mi := rsapi.MenuItem{
+				Name:       item.Name,
+				Path:       item.Path,
+				Resource:   item.Resource,
+				Missing:    item.Missing,
+				Required:   item.Required,
+				LayoutName: item.LayoutName,
+				Icons:      item.Icons,
+				Installer:  item.Installer,
 			}
-		} else {
-			items := make([]rsapi.MenuItem, 0)
-			for _, item := range so.Items {
-				mi := rsapi.MenuItem{
-					Name:       item.Name,
-					Path:       item.Path,
-					Resource:   nil,
-					Missing:    true,
-					Required:   item.Required,
-					LayoutName: item.LayoutName,
-					Icons:      item.Icons,
-					Installer:  nil,
+
+			ed, ok := getEditor(mi.Resource)
+			if !ok || ed.Spec.UI == nil || ed.Spec.UI.Options == nil || len(ed.Spec.Variants) == 0 {
+				items = append(items, mi)
+			} else if mi.Resource != nil {
+				gvr := mi.Resource.GroupVersionResource()
+				ed, ok := LoadResourceEditor(kc, gvr)
+				if !ok {
+					return nil, fmt.Errorf("ResourceEditor not defined for %+v", gvr)
 				}
 
-				if item.Type != nil {
-					if generated, ok := getMenuItem(menuPerGK, *item.Type); ok {
-						mi.Resource = generated.Resource
-						mi.Missing = false
-						mi.Installer = generated.Installer
-						if mi.LayoutName == "" {
-							mi.LayoutName = generated.LayoutName
-						}
-					}
+				chartRef := ed.Spec.UI.Options
+				chrt, err := lib.DefaultRegistry.GetChart(chartRef.URL, chartRef.Name, chartRef.Version)
+				if err != nil {
+					klog.Fatal(err)
 				}
 
-				ed, ok := getEditor(mi.Resource)
-				if !ok || ed.Spec.UI == nil || ed.Spec.UI.Options == nil || len(ed.Spec.Variants) == 0 {
-					items = append(items, mi)
-				} else if mi.Resource != nil {
-					gvr := mi.Resource.GroupVersionResource()
-					ed, ok := LoadResourceEditor(kc, gvr)
-					if !ok {
-						return nil, fmt.Errorf("ResourceEditor not defined for %+v", gvr)
+				vpsMap, err := LoadVendorPresets(chrt)
+				if err != nil {
+					return nil, errors.Wrapf(err, "failed to load vendor presets for chart %+v", chartRef)
+				}
+
+				for _, ref := range ed.Spec.Variants {
+					if ref.APIGroup == nil {
+						ref.APIGroup = pointer.StringP(chartsapi.GroupVersion.Group)
+					}
+					if ref.Kind != chartsapi.ResourceKindVendorChartPreset && ref.Kind != chartsapi.ResourceKindClusterChartPreset {
+						return nil, fmt.Errorf("unknown preset kind %q used in menu item %s", ref.Kind, mi.Name)
 					}
 
-					chartRef := ed.Spec.UI.Options
-					chrt, err := lib.DefaultRegistry.GetChart(chartRef.URL, chartRef.Name, chartRef.Version)
+					qs := gourl.Values{}
+					qs.Set("preset-group", *ref.APIGroup)
+					qs.Set("preset-kind", ref.Kind)
+					qs.Set("preset-name", ref.Name)
+					u := gourl.URL{
+						Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
+						RawQuery: qs.Encode(),
+					}
+
+					name, err := GetPresetName(kc, chartRef, vpsMap, ref)
 					if err != nil {
-						klog.Fatal(err)
+						return nil, err
 					}
 
-					vpsMap, err := LoadVendorPresets(chrt)
-					if err != nil {
-						return nil, errors.Wrapf(err, "failed to load vendor presets for chart %+v", chartRef)
-					}
-
-					for _, ref := range ed.Spec.Variants {
-						if ref.APIGroup == nil {
-							ref.APIGroup = pointer.StringP(chartsapi.GroupVersion.Group)
-						}
-						if ref.Kind != chartsapi.ResourceKindVendorChartPreset && ref.Kind != chartsapi.ResourceKindClusterChartPreset {
-							return nil, fmt.Errorf("unknown preset kind %q used in menu item %s", ref.Kind, mi.Name)
-						}
-
-						qs := gourl.Values{}
-						qs.Set("preset-group", *ref.APIGroup)
-						qs.Set("preset-kind", ref.Kind)
-						qs.Set("preset-name", ref.Name)
-						u := gourl.URL{
-							Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
-							RawQuery: qs.Encode(),
-						}
-
-						name, err := GetPresetName(kc, chartRef, vpsMap, ref)
-						if err != nil {
-							return nil, err
-						}
-
-						if len(ed.Spec.Variants) == 1 {
-							// cp := mi
-							mi.Name = name
-							mi.Path = u.String()
-							mi.Preset = &ref
-							items = append(items, mi)
-						} else {
-							cp := mi
-							cp.Name = name
-							cp.Path = u.String()
-							cp.Preset = &ref
-							items = append(items, cp)
-						}
+					if len(ed.Spec.Variants) == 1 {
+						// cp := mi
+						mi.Name = name
+						mi.Path = u.String()
+						mi.Preset = &ref
+						items = append(items, mi)
+					} else {
+						cp := mi
+						cp.Name = name
+						cp.Path = u.String()
+						cp.Preset = &ref
+						items = append(items, cp)
 					}
 				}
 			}
-			sec.Items = items
 		}
-		sort.Slice(sec.Items, func(i, j int) bool {
-			return sec.Items[i].Name < sec.Items[j].Name
+		sort.Slice(items, func(i, j int) bool {
+			return items[i].Name < items[j].Name
 		})
 
-		if len(sec.Items) > 0 {
-			out.Sections = append(out.Sections, &sec)
+		if len(items) > 0 {
+			out.Sections = append(out.Sections, &rsapi.MenuSection{
+				MenuSectionInfo: so.MenuSectionInfo,
+				Items:           items,
+			})
 		}
 	}
 
 	return &out, nil
-}
-
-func getEditor(rid *kmapi.ResourceID) (*rsapi.ResourceEditor, bool) {
-	if rid == nil {
-		return nil, false
-	}
-
-	gvr := rid.GroupVersionResource()
-	ed, ok := resourceeditors.LoadForGVR(gvr)
-	return ed, ok
 }

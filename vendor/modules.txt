@@ -1353,7 +1353,7 @@ kmodules.xyz/client-go/tools/clusterid
 kmodules.xyz/client-go/tools/converter
 kmodules.xyz/client-go/tools/parser
 kmodules.xyz/client-go/tools/wait
-# kmodules.xyz/resource-metadata v0.8.2-0.20220202054328-583c0e389672
+# kmodules.xyz/resource-metadata v0.8.2-0.20220202062920-2baf50069e8f
 ## explicit; go 1.17
 kmodules.xyz/resource-metadata/apis/meta
 kmodules.xyz/resource-metadata/apis/meta/v1alpha1

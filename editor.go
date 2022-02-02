@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	kmapi "kmodules.xyz/client-go/api/v1"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/klog/v2"
@@ -20,4 +21,14 @@ func LoadResourceEditor(kc client.Client, gvr schema.GroupVersionResource) (*rsa
 		klog.V(8).InfoS(fmt.Sprintf("failed to load resource editor for %+v", gvr))
 	}
 	return resourceeditors.LoadForGVR(gvr)
+}
+
+func getEditor(rid *kmapi.ResourceID) (*rsapi.ResourceEditor, bool) {
+	if rid == nil {
+		return nil, false
+	}
+
+	gvr := rid.GroupVersionResource()
+	ed, ok := resourceeditors.LoadForGVR(gvr)
+	return ed, ok
 }

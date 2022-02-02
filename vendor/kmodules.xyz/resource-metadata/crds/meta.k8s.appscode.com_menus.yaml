@@ -25,7 +25,7 @@ spec:
             type: string
           home:
             properties:
-              autoDiscoverAPIGroup:
+              apiGroup:
                 type: string
               icons:
                 description: Icons is an optional list of icons for an application.
@@ -175,10 +175,16 @@ spec:
             type: string
           metadata:
             type: object
+          mode:
+            enum:
+            - Accordion
+            - DropDown
+            - Gallery
+            type: string
           sections:
             items:
               properties:
-                autoDiscoverAPIGroup:
+                apiGroup:
                   type: string
                 icons:
                   description: Icons is an optional list of icons for an application.
@@ -325,6 +331,8 @@ spec:
               - items
               type: object
             type: array
+        required:
+        - mode
         type: object
     served: true
     storage: true

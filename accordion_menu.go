@@ -26,16 +26,16 @@ func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterf
 			APIVersion: rsapi.SchemeGroupVersion.String(),
 			Kind:       rsapi.ResourceKindMenu,
 		},
-		Home:     mo.Home,
+		Home:     mo.Home.ToMenuSectionInfo(),
 		Sections: nil,
 	}
 
 	for _, so := range mo.Sections {
 		sec := rsapi.MenuSection{
-			MenuSectionInfo: so.MenuSectionInfo,
+			MenuSectionInfo: *so.MenuSectionOutlineInfo.ToMenuSectionInfo(),
 		}
-		if sec.AutoDiscoverAPIGroup != "" {
-			kinds := out[sec.AutoDiscoverAPIGroup]
+		if so.AutoDiscoverAPIGroup != "" {
+			kinds := out[so.AutoDiscoverAPIGroup]
 			for _, item := range kinds {
 				sec.Items = append(sec.Items, *item) // variants
 			}
