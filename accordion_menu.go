@@ -26,8 +26,8 @@ func RenderAccordionMenu(kc client.Client, disco discovery.ServerResourcesInterf
 			APIVersion: rsapi.SchemeGroupVersion.String(),
 			Kind:       rsapi.ResourceKindMenu,
 		},
-		Home:     mo.Home.ToMenuSectionInfo(),
-		Sections: nil,
+		Mode: rsapi.MenuAccordion,
+		Home: mo.Home.ToMenuSectionInfo(),
 	}
 
 	for _, so := range mo.Sections {
