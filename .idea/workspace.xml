@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a54c560e-acc8-41a9-ae41-6ea2ec8d1d9b" name="Changes" comment="" />
+    <list default="true" id="a54c560e-acc8-41a9-ae41-6ea2ec8d1d9b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dropdown_menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/dropdown_menu.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/editor.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceeditors/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceeditors/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceoutlines/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceoutlines/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
