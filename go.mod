@@ -14,7 +14,7 @@ require (
 	k8s.io/client-go v0.21.1
 	k8s.io/klog/v2 v2.9.0
 	kmodules.xyz/client-go v0.0.0-20220215012708-9963581d69a7
-	kmodules.xyz/resource-metadata v0.9.9-0.20220218050929-ad6592b55b0f
+	kmodules.xyz/resource-metadata v0.9.9-0.20220219083508-23e199409804
 	kubepack.dev/kubepack v0.3.9-0.20220201033352-575b50c5a43d
 	kubepack.dev/lib-helm v0.3.2-0.20220207083916-19ae74825432
 	kubepack.dev/preset v0.0.0-20220207074019-090909e7fcff

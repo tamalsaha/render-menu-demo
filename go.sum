@@ -1399,8 +1399,8 @@ kmodules.xyz/openshift v0.0.0-20210618001443-f2507caa512f/go.mod h1:8E5ckbd1KMNm
 kmodules.xyz/resource-metadata v0.7.1-0.20211223071151-daf19bd77f84/go.mod h1:AF6yUxhF4CUx2aoAWEbX4fPEGKHgStT74fgBUSbhYs4=
 kmodules.xyz/resource-metadata v0.8.2-0.20220116072424-4ed4f0c4b8b5/go.mod h1:1SGviU14pH9nhwp+hBGI9mVqvv0MRt8r/j7B8eMFIj0=
 kmodules.xyz/resource-metadata v0.8.2-0.20220203195725-17129529420b/go.mod h1:1SGviU14pH9nhwp+hBGI9mVqvv0MRt8r/j7B8eMFIj0=
-kmodules.xyz/resource-metadata v0.9.9-0.20220218050929-ad6592b55b0f h1:UkqOFmmpT3L0clytf/al5FkA7Os9sKcGD6u0SaKY/Uk=
-kmodules.xyz/resource-metadata v0.9.9-0.20220218050929-ad6592b55b0f/go.mod h1:XKi0VHnfYrJ1px5wzrb8PHxfvXwfQG+OsO49dubtTfM=
+kmodules.xyz/resource-metadata v0.9.9-0.20220219083508-23e199409804 h1:Nj93psaaB2dK7bHct/xRncBNLgoFMIH4Pqy4jyNquro=
+kmodules.xyz/resource-metadata v0.9.9-0.20220219083508-23e199409804/go.mod h1:XKi0VHnfYrJ1px5wzrb8PHxfvXwfQG+OsO49dubtTfM=
 kmodules.xyz/resource-metrics v0.0.5/go.mod h1:6Dv63HDgp83DhA+lZNB7GIQR6PLjNrYW6ghQKioQzII=
 kmodules.xyz/resource-metrics v0.0.6/go.mod h1:M7rWuo2qh3BpHhogiEVPnvGY9Xx4Pfygqn1Rex8YbgM=
 kmodules.xyz/resource-metrics v0.0.8/go.mod h1:M7rWuo2qh3BpHhogiEVPnvGY9Xx4Pfygqn1Rex8YbgM=

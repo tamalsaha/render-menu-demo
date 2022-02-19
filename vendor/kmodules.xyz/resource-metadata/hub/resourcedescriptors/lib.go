@@ -20,7 +20,6 @@ import (
 	"embed"
 	"fmt"
 	iofs "io/fs"
-	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -45,7 +44,7 @@ var (
 	LatestGVRs       map[schema.GroupKind]schema.GroupVersionResource
 
 	loader = ioutilx.NewReloader(
-		filepath.Join(os.TempDir(), "hub", "resourcedescriptors"),
+		filepath.Join("/tmp", "hub", "resourcedescriptors"),
 		fs,
 		func(fsys iofs.FS) {
 			KnownDescriptors = map[string]*v1alpha1.ResourceDescriptor{}

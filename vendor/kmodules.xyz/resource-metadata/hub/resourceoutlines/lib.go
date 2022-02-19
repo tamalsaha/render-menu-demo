@@ -20,7 +20,6 @@ import (
 	"embed"
 	"fmt"
 	iofs "io/fs"
-	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -45,7 +44,7 @@ var (
 	rlPerGR map[schema.GroupVersionResource]*v1alpha1.ResourceOutline
 
 	loader = ioutilx.NewReloader(
-		filepath.Join(os.TempDir(), "hub", "resourceoutlines"),
+		filepath.Join("/tmp", "hub", "resourceoutlines"),
 		fs,
 		func(fsys iofs.FS) {
 			rlMap = map[string]*v1alpha1.ResourceOutline{}

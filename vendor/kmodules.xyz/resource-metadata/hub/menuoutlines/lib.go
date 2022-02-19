@@ -19,7 +19,6 @@ package menuoutlines
 import (
 	"embed"
 	iofs "io/fs"
-	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -44,7 +43,7 @@ var (
 	moMap map[string]*v1alpha1.MenuOutline
 
 	loader = ioutilx.NewReloader(
-		filepath.Join(os.TempDir(), "hub", "menuoutlines"),
+		filepath.Join("/tmp", "hub", "menuoutlines"),
 		fs,
 		func(fsys iofs.FS) {
 			moMap = map[string]*v1alpha1.MenuOutline{}

@@ -21,7 +21,6 @@ import (
 	"embed"
 	"fmt"
 	iofs "io/fs"
-	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -47,7 +46,7 @@ var (
 	reMap map[string]*v1alpha1.ResourceEditor
 
 	loader = ioutilx.NewReloader(
-		filepath.Join(os.TempDir(), "hub", "resourceeditors"),
+		filepath.Join("/tmp", "hub", "resourceeditors"),
 		fs,
 		func(fsys iofs.FS) {
 			reMap = map[string]*v1alpha1.ResourceEditor{}

@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/gob"
 	"fmt"
+	"os"
 	"path/filepath"
 
 	cu "kmodules.xyz/client-go/client"
@@ -73,6 +74,9 @@ func main() {
 	if err != nil {
 		klog.Fatal(err)
 	}
+
+	fmt.Println(os.Getenv("TMPDIR"))
+	fmt.Println(os.TempDir())
 
 	out, err := RenderAccordionMenu(kc, client, "kubedb")
 	data, _ := yaml.Marshal(out)
