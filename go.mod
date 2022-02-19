@@ -3,28 +3,19 @@ module github.com/tamalsaha/render-menu-demo
 go 1.17
 
 require (
-	github.com/go-chi/chi/v5 v5.0.7
 	github.com/gobuffalo/flect v0.2.3
 	github.com/google/uuid v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/pflag v1.0.5
-	github.com/unrolled/render v1.4.1
 	github.com/zeebo/xxh3 v1.0.1
-	go.wandrs.dev/binding v0.0.2
-	go.wandrs.dev/http v0.0.1
-	gomodules.xyz/logs v0.0.6
 	gomodules.xyz/pointer v0.1.0
-	gomodules.xyz/x v0.0.13
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
-	k8s.io/cli-runtime v0.21.1
 	k8s.io/client-go v0.21.1
 	k8s.io/klog/v2 v2.9.0
-	k8s.io/kubectl v0.21.1
 	kmodules.xyz/client-go v0.0.0-20220215012708-9963581d69a7
 	kmodules.xyz/resource-metadata v0.9.9-0.20220218050929-ad6592b55b0f
 	kubepack.dev/kubepack v0.3.9-0.20220201033352-575b50c5a43d
-	kubepack.dev/lib-app v0.0.6-0.20220208062632-219a543eea63
 	kubepack.dev/lib-helm v0.3.2-0.20220207083916-19ae74825432
 	kubepack.dev/preset v0.0.0-20220207074019-090909e7fcff
 	sigs.k8s.io/controller-runtime v0.9.0
@@ -62,7 +53,6 @@ require (
 	github.com/containerd/cgroups v0.0.0-20200531161412-0dbf7f05ba59 // indirect
 	github.com/containerd/containerd v1.4.12 // indirect
 	github.com/containerd/continuity v0.0.0-20201208142359-180525291bb7 // indirect
-	github.com/cubewise-code/go-mime v0.0.0-20200519001935-8c5762b177d8 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deislabs/oras v0.11.1 // indirect
@@ -75,7 +65,6 @@ require (
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/emicklei/go-restful v2.9.5+incompatible // indirect
 	github.com/evanphx/json-patch v4.11.0+incompatible // indirect
-	github.com/evanphx/json-patch/v5 v5.5.0 // indirect
 	github.com/exponent-io/jsonpath v0.0.0-20151013193312-d6023ce2651d // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
@@ -88,10 +77,6 @@ require (
 	github.com/go-openapi/jsonreference v0.19.3 // indirect
 	github.com/go-openapi/spec v0.19.8 // indirect
 	github.com/go-openapi/swag v0.19.5 // indirect
-	github.com/go-playground/form/v4 v4.1.3 // indirect
-	github.com/go-playground/locales v0.13.0 // indirect
-	github.com/go-playground/universal-translator v0.17.0 // indirect
-	github.com/go-playground/validator/v10 v10.6.1 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
@@ -118,7 +103,6 @@ require (
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
-	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/lib/pq v1.10.0 // indirect
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de // indirect
 	github.com/mailru/easyjson v0.7.0 // indirect
@@ -162,7 +146,6 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	go.opencensus.io v0.22.5 // indirect
 	go.starlark.net v0.0.0-20200821142938-949cc6f4b097 // indirect
-	go.wandrs.dev/inject v0.0.1 // indirect
 	gocloud.dev v0.22.0 // indirect
 	golang.org/x/crypto v0.0.0-20210314154223-e6e6c4f2bb5b // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
@@ -177,14 +160,9 @@ require (
 	golang.org/x/tools v0.1.8 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gomodules.xyz/blobfs v0.1.10 // indirect
-	gomodules.xyz/clock v0.0.0-20200817085942-06523dba733f // indirect
-	gomodules.xyz/flags v0.1.3 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.2.0 // indirect
-	gomodules.xyz/jsonpatch/v3 v3.0.1 // indirect
-	gomodules.xyz/orderedmap v0.1.0 // indirect
-	gomodules.xyz/password-generator v0.2.7 // indirect
 	gomodules.xyz/sets v0.2.1 // indirect
-	gomodules.xyz/wait v0.2.0 // indirect
+	gomodules.xyz/x v0.0.13 // indirect
 	google.golang.org/api v0.44.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20210602131652-f16073e35f0c // indirect
@@ -198,8 +176,10 @@ require (
 	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
 	k8s.io/apiextensions-apiserver v0.21.1 // indirect
 	k8s.io/apiserver v0.21.1 // indirect
+	k8s.io/cli-runtime v0.21.1 // indirect
 	k8s.io/component-base v0.21.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20210421082810-95288971da7e // indirect
+	k8s.io/kubectl v0.21.1 // indirect
 	k8s.io/utils v0.0.0-20210802155522-efc7438f0176 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
 	kmodules.xyz/apply v0.0.0-20210503080849-eb226c295465 // indirect
