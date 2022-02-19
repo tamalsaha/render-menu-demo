@@ -51,7 +51,7 @@ var (
 			latestGVRs = map[schema.GroupKind]schema.GroupVersionResource{}
 
 			e2 := iofs.WalkDir(fsys, ".", func(path string, d iofs.DirEntry, err error) error {
-				if d.IsDir() || d.Name() == ioutilx.TriggerFile || err != nil {
+				if d.IsDir() || err != nil {
 					return errors.Wrap(err, path)
 				}
 				ext := filepath.Ext(d.Name())

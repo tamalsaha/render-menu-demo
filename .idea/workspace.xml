@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a54c560e-acc8-41a9-ae41-6ea2ec8d1d9b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourcedescriptors/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourcedescriptors/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceeditors/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceeditors/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceoutlines/lib.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourceoutlines/lib.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,9 +126,19 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/vendor/gomodules.xyz/x/ioutil/reloader.go</url>
+          <line>51</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourcedescriptors/lib.go</url>
-          <line>49</line>
-          <option name="timeStamp" value="18" />
+          <line>101</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/accordion_menu.go</url>
+          <line>30</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
