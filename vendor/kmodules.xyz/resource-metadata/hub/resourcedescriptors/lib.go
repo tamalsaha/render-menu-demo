@@ -54,6 +54,10 @@ var (
 				if d.IsDir() || d.Name() == ioutilx.TriggerFile || err != nil {
 					return errors.Wrap(err, path)
 				}
+				ext := filepath.Ext(d.Name())
+				if ext != ".yaml" && ext != ".yml" && ext != ".json" {
+					return nil
+				}
 
 				data, err := iofs.ReadFile(fsys, path)
 				if err != nil {
