@@ -3,8 +3,9 @@ package main
 import (
 	"encoding/gob"
 	"fmt"
-	cu "kmodules.xyz/client-go/client"
 	"path/filepath"
+
+	cu "kmodules.xyz/client-go/client"
 
 	flag "github.com/spf13/pflag"
 	"github.com/zeebo/xxh3"
@@ -73,8 +74,14 @@ func main() {
 		klog.Fatal(err)
 	}
 
-	out, err := RenderAccordionMenu(kc, client, "cluster")
-	data2, _ := yaml.Marshal(out)
+	out, err := RenderAccordionMenu(kc, client, "kubedb")
+	data, _ := yaml.Marshal(out)
+	fmt.Println(string(data))
+
+	fmt.Println("--------------------------------")
+
+	out2, err := RenderAccordionMenu(kc, client, "kubedb")
+	data2, _ := yaml.Marshal(out2)
 	fmt.Println(string(data2))
 
 	//menu, err := GenerateCompleteMenu(kc, client.Discovery())
