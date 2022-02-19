@@ -19,16 +19,17 @@ spec:
       byLabel: view
       type: GraphQL
     ref:
-      group: ui.k8s.appscode.com
+      group: core.k8s.appscode.com
       kind: GenericResource
     view:
-      name: kubedb-ui.k8s.appscode.com-v1alpha1-genericresources
+      name: kubedb-core.k8s.appscode.com-v1alpha1-genericresources
   pages:
   - blocks:
     - actions:
         create: Never
       displayMode: List
       kind: Connection
+      name: Pods
       query:
         raw: |-
           query Find($src: String!, $targetGroup: String!, $targetKind: String!) {
@@ -43,7 +44,7 @@ spec:
           }
         type: GraphQL
       ref:
-        group: ui.k8s.appscode.com
+        group: core.k8s.appscode.com
         kind: PodView
     info:
       actions:
@@ -74,6 +75,7 @@ spec:
       displayMode: Field
       fieldPath: .spec.queries
       kind: Connection
+      name: Slow Queries
       query:
         byLabel: view
         type: GraphQL
@@ -87,6 +89,7 @@ spec:
       displayMode: Field
       fieldPath: .spec.databases
       kind: Connection
+      name: Databases
       query:
         byLabel: view
         type: GraphQL
@@ -112,6 +115,7 @@ spec:
         create: Always
       displayMode: List
       kind: Connection
+      name: Recent Backups
       query:
         raw: |-
           query Find($src: String!, $targetGroup: String!, $targetKind: String!) {
@@ -155,6 +159,7 @@ spec:
         create: Always
       displayMode: List
       kind: Connection
+      name: Recent Operations
       query:
         byLabel: offshoot
         type: GraphQL
@@ -177,10 +182,10 @@ spec:
       byLabel: view
       type: GraphQL
     ref:
-      group: ui.k8s.appscode.com
+      group: core.k8s.appscode.com
       kind: GenericResourceService
     view:
-      name: kubedb-ui.k8s.appscode.com-v1alpha1-genericresourceservices
+      name: kubedb-core.k8s.appscode.com-v1alpha1-genericresourceservices
   ui:
     editor:
       name: kubedbcom-redis-editor

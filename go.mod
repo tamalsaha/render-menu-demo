@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/go-chi/chi/v5 v5.0.7
+	github.com/gobuffalo/flect v0.2.3
 	github.com/google/uuid v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/pflag v1.0.5
@@ -13,19 +14,19 @@ require (
 	go.wandrs.dev/http v0.0.1
 	gomodules.xyz/logs v0.0.6
 	gomodules.xyz/pointer v0.1.0
-	gomodules.xyz/x v0.0.10
+	gomodules.xyz/x v0.0.13
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
 	k8s.io/cli-runtime v0.21.1
 	k8s.io/client-go v0.21.1
 	k8s.io/klog/v2 v2.9.0
 	k8s.io/kubectl v0.21.1
-	kmodules.xyz/client-go v0.0.0-20220131065336-bb3e98486e83
-	kmodules.xyz/resource-metadata v0.8.2-0.20220203024927-3c46b541c74f
+	kmodules.xyz/client-go v0.0.0-20220215012708-9963581d69a7
+	kmodules.xyz/resource-metadata v0.9.9-0.20220218050929-ad6592b55b0f
 	kubepack.dev/kubepack v0.3.9-0.20220201033352-575b50c5a43d
-	kubepack.dev/lib-app v0.0.6-0.20220202133430-06d5a54e87cf
-	kubepack.dev/lib-helm v0.3.2-0.20220202133039-f91fc7c04650
-	kubepack.dev/preset v0.0.0-20220202134203-5d5853a977cb
+	kubepack.dev/lib-app v0.0.6-0.20220208062632-219a543eea63
+	kubepack.dev/lib-helm v0.3.2-0.20220207083916-19ae74825432
+	kubepack.dev/preset v0.0.0-20220207074019-090909e7fcff
 	sigs.k8s.io/controller-runtime v0.9.0
 	sigs.k8s.io/yaml v1.2.0
 )
@@ -91,7 +92,6 @@ require (
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.6.1 // indirect
-	github.com/gobuffalo/flect v0.2.3 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect

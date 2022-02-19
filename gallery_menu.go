@@ -11,20 +11,22 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
+	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
+	"kubepack.dev/lib-helm/pkg/values"
 	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func GetGalleryMenu(driver *UserMenuDriver, menuName string) (*rsapi.Menu, error) {
-	menu, err := driver.Get(menuName)
+func GetGalleryMenu(driver *UserMenuDriver, opts *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
+	menu, err := driver.Get(opts.Menu)
 	if err != nil {
 		return nil, err
 	}
-	return RenderGalleryMenu(driver.GetClient(), menu)
+	return RenderGalleryMenu(driver.GetClient(), menu, opts)
 }
 
-func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
+func RenderGalleryMenu(kc client.Client, in *rsapi.Menu, opts *rsapi.RenderMenuRequest) (*rsapi.Menu, error) {
 	out := rsapi.Menu{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: rsapi.SchemeGroupVersion.String(),
@@ -38,6 +40,10 @@ func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 	}
 
 	for _, so := range in.Spec.Sections {
+		if opts.Section != nil && so.Name != *opts.Section {
+			continue
+		}
+
 		items := make([]rsapi.MenuItem, 0)
 		for _, item := range so.Items {
 			mi := rsapi.MenuItem{
@@ -51,12 +57,18 @@ func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 				Installer:  item.Installer,
 			}
 
-			ed, ok := getEditor(mi.Resource)
+			if mi.Resource != nil &&
+				opts.Type != nil &&
+				(opts.Type.Group != mi.Resource.Group || opts.Type.Kind != mi.Resource.Kind) {
+				continue
+			}
+
+			ed, ok := resourceeditors.LoadByResourceID(kc, mi.Resource)
 			if !ok || ed.Spec.UI == nil || ed.Spec.UI.Options == nil || len(ed.Spec.Variants) == 0 {
 				items = append(items, mi)
 			} else if mi.Resource != nil {
 				gvr := mi.Resource.GroupVersionResource()
-				ed, ok := LoadResourceEditor(kc, gvr)
+				ed, ok := resourceeditors.LoadByGVR(kc, gvr)
 				if !ok {
 					return nil, fmt.Errorf("ResourceEditor not defined for %+v", gvr)
 				}
@@ -67,7 +79,7 @@ func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 					klog.Fatal(err)
 				}
 
-				vpsMap, err := LoadVendorPresets(chrt)
+				vpsMap, err := values.LoadVendorPresets(chrt.Chart)
 				if err != nil {
 					return nil, errors.Wrapf(err, "failed to load vendor presets for chart %+v", chartRef)
 				}
@@ -81,15 +93,15 @@ func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 					}
 
 					qs := gourl.Values{}
-					qs.Set("preset-group", *ref.APIGroup)
-					qs.Set("preset-kind", ref.Kind)
-					qs.Set("preset-name", ref.Name)
+					qs.Set("presetGroup", *ref.APIGroup)
+					qs.Set("presetKind", ref.Kind)
+					qs.Set("presetName", ref.Name)
 					u := gourl.URL{
 						Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
 						RawQuery: qs.Encode(),
 					}
 
-					name, err := GetPresetName(kc, chartRef, vpsMap, ref)
+					name, err := GetPresetName(kc, chartRef, vpsMap, ref.TypedLocalObjectReference)
 					if err != nil {
 						return nil, err
 					}
@@ -98,13 +110,15 @@ func RenderGalleryMenu(kc client.Client, in *rsapi.Menu) (*rsapi.Menu, error) {
 						// cp := mi
 						mi.Name = name
 						mi.Path = u.String()
-						mi.Preset = &ref
+						mi.Preset = &ref.TypedLocalObjectReference
+						mi.Icons = ref.Icons
 						items = append(items, mi)
 					} else {
 						cp := mi
 						cp.Name = name
 						cp.Path = u.String()
-						cp.Preset = &ref
+						cp.Preset = &ref.TypedLocalObjectReference
+						mi.Icons = ref.Icons
 						items = append(items, cp)
 					}
 				}

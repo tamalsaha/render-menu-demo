@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	gourl "net/url"
 	"path"
 	"sort"
@@ -14,7 +13,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
+	"kmodules.xyz/resource-metadata/hub/resourceeditors"
 	"kubepack.dev/kubepack/pkg/lib"
+	"kubepack.dev/lib-helm/pkg/values"
 	chartsapi "kubepack.dev/preset/apis/charts/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -80,7 +81,7 @@ func RenderDropDownMenu(kc client.Client, in *rsapi.Menu, opts *rsapi.RenderMenu
 					klog.Fatal(err)
 				}
 
-				vpsMap, err := LoadVendorPresets(chrt)
+				vpsMap, err := values.LoadVendorPresets(chrt.Chart)
 				if err != nil {
 					return nil, errors.Wrapf(err, "failed to load vendor presets for chart %+v", chartRef)
 				}
@@ -94,15 +95,15 @@ func RenderDropDownMenu(kc client.Client, in *rsapi.Menu, opts *rsapi.RenderMenu
 					}
 
 					qs := gourl.Values{}
-					qs.Set("preset-group", *ref.APIGroup)
-					qs.Set("preset-kind", ref.Kind)
-					qs.Set("preset-name", ref.Name)
+					qs.Set("presetGroup", *ref.APIGroup)
+					qs.Set("presetKind", ref.Kind)
+					qs.Set("presetName", ref.Name)
 					u := gourl.URL{
 						Path:     path.Join(mi.Resource.Group, mi.Resource.Version, mi.Resource.Name),
 						RawQuery: qs.Encode(),
 					}
 
-					name, err := GetPresetName(kc, chartRef, vpsMap, ref)
+					name, err := GetPresetName(kc, chartRef, vpsMap, ref.TypedLocalObjectReference)
 					if err != nil {
 						return nil, err
 					}
@@ -111,13 +112,15 @@ func RenderDropDownMenu(kc client.Client, in *rsapi.Menu, opts *rsapi.RenderMenu
 						// cp := mi
 						mi.Name = name
 						mi.Path = u.String()
-						mi.Preset = &ref
+						mi.Preset = &ref.TypedLocalObjectReference
+						mi.Icons = ref.Icons
 						// items = append(items, mi)
 					} else {
 						cp := mi
 						cp.Name = name
 						cp.Path = u.String()
-						cp.Preset = &ref
+						cp.Preset = &ref.TypedLocalObjectReference
+						cp.Icons = ref.Icons
 						mi.Items = append(mi.Items, cp)
 					}
 				}
