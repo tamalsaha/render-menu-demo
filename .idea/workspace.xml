@@ -131,14 +131,9 @@
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/vendor/kmodules.xyz/resource-metadata/hub/resourcedescriptors/lib.go</url>
-          <line>101</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/accordion_menu.go</url>
-          <line>30</line>
-          <option name="timeStamp" value="21" />
+          <line>119</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
